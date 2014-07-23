@@ -26,6 +26,7 @@
             android:padding="10dp"
             android:hint="@string/email"
             android:textColorHint="#cccccc"
+            android:singleLine="true"
             android:drawableLeft="@drawable/email"/>
         <EditText 
             android:id="@+id/etPass"
@@ -35,6 +36,7 @@
             android:layout_marginTop="-2dp"
             android:padding="10dp"
             android:hint="@string/password"
+            android:singleLine="true"
             android:inputType="textWebPassword"
             android:textColorHint="#cccccc"
             android:drawableLeft="@drawable/password"/>
