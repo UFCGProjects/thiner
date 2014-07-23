@@ -1,4 +1,3 @@
-// var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
 
@@ -25,7 +24,7 @@ router.post('/user/create', function(req, res) {
 });
 
 /* GET user infos. */
-router.get('/user/all', function(req, res) {
+router.get('/user/all', function (req, res) {
 
   User.find({}).exec(function(err, result) {
     if (!err) {
@@ -33,6 +32,16 @@ router.get('/user/all', function(req, res) {
     }
   });
 
+});
+
+router.get('/auth/', function (req, res) {
+  var rules = {'username': req.query.username, 'password': req.query.password};
+
+  User.find(rules).exec(function(err, result) {
+    if (!err) {
+      res.send(result);
+    }
+  });
 });
 
 module.exports = router;
