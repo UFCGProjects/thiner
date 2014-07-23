@@ -3,34 +3,9 @@
 
     <string name="app_name">POvMT Android App</string>
     <string name="action_add_ti">Adicionar Ti</string>
-    <string name="adicionar">Adicionar</string>
-    <string name="adicionando_ti">Adicionando Ti</string>
-    <string name="activity">Atividade</string>
-    <string name="auth">POvMT</string>
-    <string name="begin">Início</string>
-    <string name="carregando_ti">Carregando Tis</string>
+    
     <string name="cant_without_connection">Impossivel sem conexão.</string>
     <string name="connection_unavailable">Conexão indisponivel.</string>
-    <string name="end">Final</string>
-    <string name="hora_inicio">Hora Inicio</string>
-    <string name="hora_fim">Hora Final</string>
-    <string name="action_settings">Configurações</string>
-    <string name="cancel">Cancelar</string>
-    <string name="ok">OK</string>
-    <string name="no_ti_on_this_week">Você não tem Ti nessa semana.</string>
-    <string name="priority">Prioridade</string>
-    <string name="refresh">Atualizar</string>
-    <string name="register_dialog_title">Novo Ti</string>
-    <string name="register_ti">Registrar Ti</string>
-    <string name="registrar">Registrar</string>
-    <string name="total">Total:</string>
-    <string name="please_wait">Por favor, espere.</string>
-    <string name="ti_title">Título do Ti</string>
-    <string name="title">Título</string>
-    <string name="time_begin">Hora de Início</string>
-    <string name="time_end">Hora de Termino</string>
-    <string name="title_activity_register_ti">Registrar Ti</string>
-    
     <style name="DefaultButtonText">
        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -44,7 +19,11 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">1</item>
     </style>
+    
     <string name="create">Create Account</string>
     <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signin">SignIn</string>
 
 </resources>
