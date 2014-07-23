@@ -1,7 +1,7 @@
 
 <resources>
 
-    <string name="app_name">POvMT Android App</string>
+    <string name="app_name">Thiner Android App</string>
     <string name="action_add_ti">Adicionar Ti</string>
     
     <string name="cant_without_connection">Impossivel sem conexão.</string>
