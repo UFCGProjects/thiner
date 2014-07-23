@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.thiner_app.R;
+import com.thiner.R;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;

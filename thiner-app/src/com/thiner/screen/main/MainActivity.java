@@ -6,16 +6,24 @@
 package com.thiner.screen.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
-import com.thiner_app.R;
+import com.thiner.R;
+import com.thiner.screen.signin.SignInActivity;
+import com.thiner.screen.signup.SignUpActivity;
 
 /**
  * The Class MainActivity.
  */
 public final class MainActivity extends Activity {
+
+    View mview;
 
     /**
      * /* (non-Javadoc)
@@ -27,6 +35,37 @@ public final class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
+        setListenerButtons();
+
+    }
+
+    private void setListenerButtons() {
+        mview = findViewById(R.id.btnSingIn);
+        if (mview instanceof Button) {
+            ((Button) mview).setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(),
+                            SignInActivity.class);
+                    startActivity(i);
+
+                }
+            });
+        }
+        mview = findViewById(R.id.btnSignUp);
+        if (mview instanceof Button) {
+            ((Button) mview).setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(),
+                            SignUpActivity.class);
+                    startActivity(i);
+
+                }
+            });
+        }
     }
 
     /*
@@ -83,7 +122,7 @@ public final class MainActivity extends Activity {
      */
     @Override
     public void onBackPressed() {
-        NavUtils.navigateUpFromSameTask(this);
+        super.onDestroy();
     }
 
 }
