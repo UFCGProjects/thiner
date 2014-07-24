@@ -6,37 +6,35 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
-    <LinearLayout 
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:background="@drawable/linearlayout_bg"
-        android:padding="10dp"
-        >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
-        <Button 
-               android:id="@+id/btnSignUp"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:padding="10dp"
-            android:layout_margin="4dp"
-               android:text="Sign Up"
-               android:background="@drawable/button_default_bg"
-               style="@style/DefaultButtonText"
-           />
-        <Button 
-               android:id="@+id/btnSingIn"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_margin="4dp"
-               android:text="Sign In"
+        <Button
+            android:id="@+id/btnSignUp"
             style="@style/DefaultButtonText"
-               android:background="@drawable/button_default_bg"
-           />
-        </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@drawable/button_default_bg"
+            android:padding="10dp"
+            android:text="Sign Up" />
+
+        <Button
+            android:id="@+id/btnSingIn"
+            style="@style/DefaultButtonText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="@drawable/button_default_bg"
+            android:padding="10dp"
+            android:text="Sign In" />
+    </LinearLayout>
 
 </RelativeLayout>

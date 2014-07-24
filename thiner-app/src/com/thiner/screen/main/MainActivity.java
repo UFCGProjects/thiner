@@ -6,6 +6,7 @@
 package com.thiner.screen.main;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.thiner.R;
 import com.thiner.screen.signin.SignInActivity;
@@ -22,107 +25,84 @@ import com.thiner.screen.signup.SignUpActivity;
  * The Class MainActivity.
  */
 public final class MainActivity extends Activity {
+	Button btnSignIn, btnSignUp;
+	LoginDataBaseAdapter loginDataBaseAdapter;
 
-    View mview;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
-    /**
-     * /* (non-Javadoc)
-     * 
-     * @see android.app.Activity#onCreate(android.os.Bundle)
-     */
-    @Override
-    protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_main);
+		// create a instance of SQLite Database
+		loginDataBaseAdapter = new LoginDataBaseAdapter(this);
+		loginDataBaseAdapter = loginDataBaseAdapter.open();
 
-        setListenerButtons();
+		// Get The Refference Of Buttons
+		btnSignIn = (Button) findViewById(R.id.buttonSignIN);
+		btnSignUp = (Button) findViewById(R.id.buttonSignUP);
 
-    }
+		// Set OnClick Listener on SignUp button
+		btnSignUp.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
 
-    private void setListenerButtons() {
-        mview = findViewById(R.id.btnSingIn);
-        if (mview instanceof Button) {
-            ((Button) mview).setOnClickListener(new OnClickListener() {
+				// / Create Intent for SignUpActivity and Start The Activity
+				Intent intentSignUP = new Intent(getApplicationContext(),
+						SignUPActivity.class);
+				startActivity(intentSignUP);
+			}
+		});
+	}
 
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(),
-                            SignInActivity.class);
-                    startActivity(i);
+	// Methos to handleClick Event of Sign In Button
+	public void signIn(View V) {
+		final Dialog dialog = new Dialog(MainActivity.this);
+		dialog.setContentView(R.layout.login);
+		dialog.setTitle("Login");
 
-                }
-            });
-        }
-        mview = findViewById(R.id.btnSignUp);
-        if (mview instanceof Button) {
-            ((Button) mview).setOnClickListener(new OnClickListener() {
+		// get the Refferences of views
+		final EditText editTextUserName = (EditText) dialog
+				.findViewById(R.id.editTextUserNameToLogin);
+		final EditText editTextPassword = (EditText) dialog
+				.findViewById(R.id.editTextPasswordToLogin);
 
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(),
-                            SignUpActivity.class);
-                    startActivity(i);
+		Button btnSignIn = (Button) dialog.findViewById(R.id.buttonSignIn);
 
-                }
-            });
-        }
-    }
+		// Set On ClickListener
+		btnSignIn.setOnClickListener(new View.OnClickListener() {
 
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onDestroy()
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
+			public void onClick(View v) {
+				// get The User name and Password
+				String userName = editTextUserName.getText().toString();
+				String password = editTextPassword.getText().toString();
 
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onPause()
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
+				// fetch the Password form database for respective user name
+				String storedPassword = loginDataBaseAdapter
+						.getSinlgeEntry(userName);
 
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onResume()
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+				// check if the Stored password matches with Password entered by
+				// user
+				if (password.equals(storedPassword)) {
+					Toast.makeText(MainActivity.this,
+							"Congrats: Login Successfull", Toast.LENGTH_LONG)
+							.show();
+					dialog.dismiss();
+				} else {
+					Toast.makeText(MainActivity.this,
+							"User Name or Password does not match",
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-     */
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+		dialog.show();
+	}
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-     */
-
-    /*
-     * (non-Javadoc)
-     * @see android.app.Activity#onBackPressed()
-     */
-    @Override
-    public void onBackPressed() {
-        super.onDestroy();
-    }
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// Close The Database
+		loginDataBaseAdapter.close();
+	}
 
 }
