@@ -45,7 +45,6 @@
          <activity
             android:name="com.thiner.screen.profile.ProfileActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.Light"
             android:parentActivityName="com.thiner.screen.main.SignInActivity"
             android:screenOrientation="portrait" >
              <meta-data
