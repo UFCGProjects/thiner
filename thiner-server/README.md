@@ -1,2 +1,0 @@
-thiner-server
-===========
