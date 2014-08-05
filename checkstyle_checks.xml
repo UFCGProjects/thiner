@@ -55,8 +55,6 @@
 
        <module name="UnusedImports" />
 
-       <module name="LineLength" />
-
        <module name="MethodLength" />
 
        <module name="ParameterNumber" />
