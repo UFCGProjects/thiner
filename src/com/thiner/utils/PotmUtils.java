@@ -27,7 +27,7 @@ public final class PotmUtils {
     private PotmUtils() {
     }
 
-    private static final String URL = "http://pomt.herokuapp.com/api/ti";
+    private static final String URL = "http://thiner.herokuapp.com/api/user";
     // private static final String URL = "http://192.168.1.244:5000/api/ti";
 
     /**
