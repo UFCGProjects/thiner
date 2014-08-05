@@ -2,6 +2,7 @@
  * Copyright (C) 2014 Embedded Systems and Pervasive Computing Lab - UFCG
  * All rights reserved.
  */
+
 package com.thiner.utils;
 
 import android.util.Log;
@@ -11,9 +12,10 @@ import android.util.Log;
  */
 public final class MyLog {
 
-	private MyLog(){
-		
-	}
+    private MyLog() {
+
+    }
+
     /**
      * The Constant TAG.
      */
@@ -40,8 +42,7 @@ public final class MyLog {
     private static final String DEBUG = "DEBUG";
 
     /**
-     * The Constant LEVEL.
-     * None: 0; ERROR: 1; WARN: 2; INFO: 3; DEBUG: 4;
+     * The Constant LEVEL. None: 0; ERROR: 1; WARN: 2; INFO: 3; DEBUG: 4;
      */
     private static final int LEVEL = 4;
 
@@ -103,7 +104,7 @@ public final class MyLog {
     }
 
     /**
-     *Sends a warning message.
+     * Sends a warning message.
      *
      * @param msg the msg to be sent
      */

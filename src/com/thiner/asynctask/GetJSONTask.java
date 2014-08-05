@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.thiner.utils.MyLog;
-import com.thiner.utils.Utils;
+import com.thiner.utils.ThinerUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +29,7 @@ public class GetJSONTask extends AsyncTask<String, Void, String> {
 
             MyLog.info("GET: " + urls[0]);
 
-            result = Utils.downloadUrl(urls[0]);
+            result = ThinerUtils.downloadUrl(urls[0]);
 
             if (result == null) {
 

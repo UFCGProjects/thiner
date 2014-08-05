@@ -24,72 +24,70 @@ import com.thiner.screen.signup.SignUPActivity;
  * The Class MainActivity.
  */
 public final class MainActivity extends Activity implements DownloadJSONInterface {
-	Button btnSignIn, btnSignUp;
+    Button btnSignIn, btnSignUp;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-		// Get The Refference Of Buttons
-		btnSignIn = (Button) findViewById(R.id.buttonSignIN);
-		btnSignUp = (Button) findViewById(R.id.buttonSignUP);
+        // Get The Refference Of Buttons
+        btnSignIn = (Button) findViewById(R.id.buttonSignIN);
+        btnSignUp = (Button) findViewById(R.id.buttonSignUP);
 
-		// Set OnClick Listener on SignUp button
-		btnSignUp.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
+        // Set OnClick Listener on SignUp button
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
 
-				// / Create Intent for SignUpActivity and Start The Activity
-				Intent intentSignUP = new Intent(getApplicationContext(),SignUPActivity.class);
-				startActivity(intentSignUP);
-			}
-		});
-	}
+                // / Create Intent for SignUpActivity and Start The Activity
+                Intent intentSignUP = new Intent(getApplicationContext(), SignUPActivity.class);
+                startActivity(intentSignUP);
+            }
+        });
+    }
 
-	// Methos to handleClick Event of Sign In Button
-	public void signIn(View V) {
-		final Dialog dialog = new Dialog(MainActivity.this);
-		dialog.setContentView(R.layout.login);
-		
-		
+    // Methos to handleClick Event of Sign In Button
+    public void signIn(View V) {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.login);
 
-		// get the Refferences of views
-		final EditText editTextUserName = (EditText) dialog
-				.findViewById(R.id.editTextUserNameToLogin);
-		final EditText editTextPassword = (EditText) dialog
-				.findViewById(R.id.editTextPasswordToLogin);
+        // get the Refferences of views
+        final EditText editTextUserName = (EditText) dialog
+                .findViewById(R.id.editTextUserNameToLogin);
+        final EditText editTextPassword = (EditText) dialog
+                .findViewById(R.id.editTextPasswordToLogin);
 
-		Button btnSignIn = (Button) dialog.findViewById(R.id.buttonSignIn);
+        Button btnSignIn = (Button) dialog.findViewById(R.id.buttonSignIn);
 
-		final String login = editTextUserName.getText().toString();
-		final String password = editTextPassword.getText().toString();
-		
-		// Set On ClickListener
-		btnSignIn.setOnClickListener(new View.OnClickListener() {
+        final String login = editTextUserName.getText().toString();
+        final String password = editTextPassword.getText().toString();
 
-			public void onClick(View v) {
-				 new GetJSONTask(MainActivity.this).execute("http://thiner.herokuapp.com/api/user/login" + "/"
-		                    + "username="+login+"&"+"password="+password);
-			}
-		});
+        // Set On ClickListener
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
 
-		dialog.show();
-	}
-	
-	
-	public void Login(){
-		
-	}
+            public void onClick(View v) {
+                new GetJSONTask(MainActivity.this)
+                        .execute("http://thiner.herokuapp.com/api/user/login" + "/"
+                                + "username=" + login + "&" + "password=" + password);
+            }
+        });
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
-	}
+        dialog.show();
+    }
 
-	@Override
-	public void callbackDownloadJSON(JSONObject json) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void Login() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
+    }
+
+    @Override
+    public void callbackDownloadJSON(JSONObject json) {
+        // TODO Auto-generated method stub
+
+    }
 }

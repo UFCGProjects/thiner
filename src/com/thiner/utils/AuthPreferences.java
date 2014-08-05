@@ -17,12 +17,12 @@ public final class AuthPreferences {
 
     public static SharedPreferences getInstance(Activity activity) {
         synchronized (activity) {
-    	if (preferences == null) {
-            preferences = activity
-                    .getSharedPreferences("auth", Context.MODE_PRIVATE);
-        }
+            if (preferences == null) {
+                preferences = activity
+                        .getSharedPreferences("auth", Context.MODE_PRIVATE);
+            }
 
-        return preferences;
+            return preferences;
         }
     }
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.thiner.utils.MyLog;
-import com.thiner.utils.Utils;
+import com.thiner.utils.ThinerUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,9 +30,9 @@ public class PostJSONTask extends AsyncTask<String, Void, String> {
 
             try {
 
-                MyLog.info("POST: " + Utils.getServerURL() + " - " + paramns[0]);
+                MyLog.info("POST: " + ThinerUtils.getServerURL() + " - " + paramns[0]);
 
-                result = Utils.sendPOST(Utils.getServerURL(), paramns[0]);
+                result = ThinerUtils.sendPOST(ThinerUtils.getServerURL(), paramns[0]);
 
                 if (result != null) {
                     break;
@@ -40,7 +40,7 @@ public class PostJSONTask extends AsyncTask<String, Void, String> {
 
             } catch (final IOException e) {
                 MyLog.debug("Unable to retrieve web page. URL may be invalid: "
-                        + Utils.getServerURL() + " - " + paramns[0]);
+                        + ThinerUtils.getServerURL() + " - " + paramns[0]);
             }
 
             try {

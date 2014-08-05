@@ -22,9 +22,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 
-public final class PotmUtils {
+public final class ThinerUtils {
 
-    private PotmUtils() {
+    private ThinerUtils() {
     }
 
     private static final String URL = "http://thiner.herokuapp.com/api/user";
