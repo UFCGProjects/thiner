@@ -19,23 +19,18 @@ import android.widget.Toast;
 
 import com.thiner.R;
 import com.thiner.screen.signin.SignInActivity;
-import com.thiner.screen.signup.SignUpActivity;
+import com.thiner.screen.signup.SignUPActivity;
 
 /**
  * The Class MainActivity.
  */
 public final class MainActivity extends Activity {
 	Button btnSignIn, btnSignUp;
-	LoginDataBaseAdapter loginDataBaseAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		// create a instance of SQLite Database
-		loginDataBaseAdapter = new LoginDataBaseAdapter(this);
-		loginDataBaseAdapter = loginDataBaseAdapter.open();
 
 		// Get The Refference Of Buttons
 		btnSignIn = (Button) findViewById(R.id.buttonSignIN);
@@ -73,25 +68,12 @@ public final class MainActivity extends Activity {
 
 			public void onClick(View v) {
 				// get The User name and Password
-				String userName = editTextUserName.getText().toString();
-				String password = editTextPassword.getText().toString();
 
 				// fetch the Password form database for respective user name
-				String storedPassword = loginDataBaseAdapter
-						.getSinlgeEntry(userName);
 
 				// check if the Stored password matches with Password entered by
 				// user
-				if (password.equals(storedPassword)) {
-					Toast.makeText(MainActivity.this,
-							"Congrats: Login Successfull", Toast.LENGTH_LONG)
-							.show();
-					dialog.dismiss();
-				} else {
-					Toast.makeText(MainActivity.this,
-							"User Name or Password does not match",
-							Toast.LENGTH_LONG).show();
-				}
+
 			}
 		});
 
@@ -100,9 +82,6 @@ public final class MainActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
-		// Close The Database
-		loginDataBaseAdapter.close();
+		super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
 	}
-
 }
