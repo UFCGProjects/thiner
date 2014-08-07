@@ -1,4 +1,3 @@
-
 package com.thiner.utils;
 
 import android.app.Activity;
@@ -54,8 +53,7 @@ public final class ThinerUtils {
         BufferedReader br = null;
         try {
             final URL url = new URL(myurl);
-            final HttpURLConnection conn = (HttpURLConnection) url
-                    .openConnection();
+            final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(10000 /* milliseconds */);
             conn.setConnectTimeout(15000 /* milliseconds */);
             conn.setRequestMethod("GET");
@@ -94,8 +92,7 @@ public final class ThinerUtils {
         return null;
     }
 
-    public static String sendPOST(final String myurl, final String paramns)
-            throws IOException {
+    public static String sendPOST(final String myurl, final String paramns) throws IOException {
 
         final URL url = new URL(myurl);
         final HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -138,14 +135,12 @@ public final class ThinerUtils {
     }
 
     public static void showNotConnected(final Context context) {
-        Toast.makeText(context,
-                context.getString(R.string.connection_unavailable),
+        Toast.makeText(context, context.getString(R.string.connection_unavailable),
                 Toast.LENGTH_LONG).show();
     }
 
     public static void showCantWithoutConnection(final Context context) {
-        Toast.makeText(context,
-                context.getString(R.string.cant_without_connection),
+        Toast.makeText(context, context.getString(R.string.cant_without_connection),
                 Toast.LENGTH_SHORT).show();
     }
 

@@ -1,4 +1,3 @@
-
 package com.thiner.asynctask;
 
 import android.content.Context;
