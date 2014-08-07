@@ -25,11 +25,12 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="signin">Sign In</string>
+    <string name="signIn">Sign In</string>
+    <string name="signUP">Sign Up</string>
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="request">Friends Requests</string>
-
+	<string name="userName">Username</string>
     <string name="contact_activity">Contacts</string>
 
     <string name="name">Lorem Ipsum Valves</string> 
