@@ -2,39 +2,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/layout_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_mid"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/linearlayout_bg"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:layout_below="@+id/layout_top" >
+
+        <EditText
+            android:id="@+id/editTextLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ems="10"
+            android:hint="Username" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextLogin"
+            android:singleLine="true"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" >
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_mid" >
 
         <Button
             android:id="@+id/btnSignUp"
             style="@style/DefaultButtonText"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@drawable/button_default_bg"
-            android:padding="10dp"
             android:text="Sign Up" />
 
         <Button
             android:id="@+id/btnSingIn"
             style="@style/DefaultButtonText"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="@drawable/button_default_bg"
-            android:padding="10dp"
+            android:layout_toRightOf="@+id/btnSignUp"
             android:text="Sign In" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

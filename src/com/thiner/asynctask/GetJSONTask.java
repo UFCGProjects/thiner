@@ -13,12 +13,12 @@ import org.json.JSONObject;
 public class GetJSONTask extends AsyncTask<String, Void, String> {
     private final Context mContext;
 
-    public GetJSONTask(Context context) {
+    public GetJSONTask(final Context context) {
         mContext = context;
     }
 
     @Override
-    protected String doInBackground(String... urls) {
+    protected String doInBackground(final String... urls) {
         // params comes from the execute() call: params[0] is the url.
 
         int trys = 10;
@@ -49,7 +49,7 @@ public class GetJSONTask extends AsyncTask<String, Void, String> {
 
     // onPostExecute displays the results of the AsyncTask.
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(final String result) {
         JSONObject mainObject;
 
         try {
@@ -58,7 +58,7 @@ public class GetJSONTask extends AsyncTask<String, Void, String> {
             } else {
                 mainObject = new JSONObject("{'status': 'failed'}");
             }
-            ((DownloadJSONInterface) mContext).callbackDownloadJSON(mainObject);
+            ((GetJSONInterface) mContext).callbackDownloadJSON(mainObject);
 
         } catch (final JSONException e) {
             MyLog.debug(result);
@@ -67,7 +67,7 @@ public class GetJSONTask extends AsyncTask<String, Void, String> {
         }
     }
 
-    public interface DownloadJSONInterface {
+    public interface GetJSONInterface {
         public void callbackDownloadJSON(JSONObject json);
     }
 }

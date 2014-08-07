@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SignUPActivity extends Activity implements PostJSONInterface {
+public class SignUpActivity extends Activity implements PostJSONInterface {
     EditText edUsername;
     EditText edFirstName;
     EditText edLastName;

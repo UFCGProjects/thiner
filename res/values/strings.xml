@@ -28,5 +28,6 @@
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="request">Friends Requests</string>
+    <string name="contact_activity">Contacts</string>
 
 </resources>

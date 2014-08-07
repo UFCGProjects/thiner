@@ -51,7 +51,7 @@ public final class MyLog {
      *
      * @param msg the msg to be sent
      */
-    public static void debug(String msg) {
+    public static void debug(final String msg) {
         if (LEVEL >= 4) {
             Log.d(TAG + ":" + DEBUG, msg);
         }
@@ -63,7 +63,7 @@ public final class MyLog {
      * @param msg the msg to be sent
      * @param e the exception
      */
-    public static void debug(String msg, Exception e) {
+    public static void debug(final String msg, final Exception e) {
         if (LEVEL >= 4) {
             Log.d(TAG + ":" + DEBUG, msg + ": " + e.getMessage());
         }
@@ -74,7 +74,7 @@ public final class MyLog {
      *
      * @param msg the msg to be sent
      */
-    public static void error(String msg) {
+    public static void error(final String msg) {
         if (LEVEL >= 1) {
             Log.e(TAG + ":" + ERROR, msg);
         }
@@ -86,7 +86,7 @@ public final class MyLog {
      * @param msg the msg to be sent
      * @param e the exception
      */
-    public static void error(String msg, Exception e) {
+    public static void error(final String msg, final Exception e) {
         if (LEVEL >= 1) {
             Log.e(TAG + ":" + ERROR, msg + ": " + e.getMessage());
         }
@@ -97,7 +97,7 @@ public final class MyLog {
      *
      * @param msg the msg to be sent
      */
-    public static void info(String msg) {
+    public static void info(final String msg) {
         if (LEVEL >= 3) {
             Log.i(TAG + ":" + INFO, msg);
         }
@@ -108,7 +108,7 @@ public final class MyLog {
      *
      * @param msg the msg to be sent
      */
-    public static void warning(String msg) {
+    public static void warning(final String msg) {
         if (LEVEL >= 2) {
             Log.w(TAG + ":" + WARNING, msg);
         }

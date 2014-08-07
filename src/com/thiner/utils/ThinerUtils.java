@@ -35,8 +35,8 @@ public final class ThinerUtils {
      */
     private static final String FORMAT_SHORT = "HH:mm";
 
-    public static void showToast(Context context, String message) {
-        Toast makeText = Toast.makeText(context, message, Toast.LENGTH_LONG);
+    public static void showToast(final Context context, final String message) {
+        final Toast makeText = Toast.makeText(context, message, Toast.LENGTH_LONG);
         makeText.setGravity(Gravity.TOP, 0, 0);
         makeText.show();
     }
@@ -48,7 +48,7 @@ public final class ThinerUtils {
     // Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as
     // a string.
-    public static String downloadUrl(String myurl) {
+    public static String downloadUrl(final String myurl) {
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
@@ -67,7 +67,7 @@ public final class ThinerUtils {
             br = new BufferedReader(isr);
 
             String line;
-            StringBuffer buf = new StringBuffer();
+            final StringBuffer buf = new StringBuffer();
 
             while ((line = br.readLine()) != null) {
                 buf.append(line);
@@ -79,14 +79,14 @@ public final class ThinerUtils {
 
             return buf.toString();
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             MyLog.error("Error when downloading url", e);
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 MyLog.error("Error when downloading url", e);
             }
         }
@@ -94,7 +94,7 @@ public final class ThinerUtils {
         return null;
     }
 
-    public static String sendPOST(String myurl, String paramns)
+    public static String sendPOST(final String myurl, final String paramns)
             throws IOException {
 
         final URL url = new URL(myurl);
@@ -112,7 +112,7 @@ public final class ThinerUtils {
         final BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),
                 "UTF-8"));
 
-        StringBuffer contentAsString = new StringBuffer();
+        final StringBuffer contentAsString = new StringBuffer();
         String line;
 
         while ((line = br.readLine()) != null) {
@@ -125,7 +125,7 @@ public final class ThinerUtils {
         return contentAsString.toString();
     }
 
-    public static boolean isConnected(Activity act) {
+    public static boolean isConnected(final Activity act) {
         final ConnectivityManager connMgr = (ConnectivityManager) act
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -137,13 +137,13 @@ public final class ThinerUtils {
         return false;
     }
 
-    public static void showNotConnected(Context context) {
+    public static void showNotConnected(final Context context) {
         Toast.makeText(context,
                 context.getString(R.string.connection_unavailable),
                 Toast.LENGTH_LONG).show();
     }
 
-    public static void showCantWithoutConnection(Context context) {
+    public static void showCantWithoutConnection(final Context context) {
         Toast.makeText(context,
                 context.getString(R.string.cant_without_connection),
                 Toast.LENGTH_SHORT).show();
@@ -151,15 +151,15 @@ public final class ThinerUtils {
 
     /**
      * Gets the date time format.
-     * 
+     *
      * @return the date time format
      */
     public static DateTimeFormatter getDateTimeFormat() {
         return DateTimeFormat.forPattern(FORMAT_SHORT);
     }
 
-    public static String formatDouble(double num) {
-        DecimalFormat df = new DecimalFormat("#,###.00");
+    public static String formatDouble(final double num) {
+        final DecimalFormat df = new DecimalFormat("#,###.00");
 
         boolean hasFloating = false;
 

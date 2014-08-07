@@ -5,79 +5,93 @@
 
 package com.thiner.screen.main;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.thiner.R;
 import com.thiner.asynctask.GetJSONTask;
-import com.thiner.asynctask.GetJSONTask.DownloadJSONInterface;
-import com.thiner.screen.signup.SignUPActivity;
+import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
+import com.thiner.screen.contact.ContactActivity;
+import com.thiner.screen.signup.SignUpActivity;
+import com.thiner.utils.APIUtils;
+import com.thiner.utils.ThinerUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * The Class MainActivity.
  */
-public final class MainActivity extends Activity implements DownloadJSONInterface {
-    Button btnSignIn, btnSignUp;
+public final class MainActivity extends Activity implements GetJSONInterface {
+
+    private EditText txtLogin;
+    private EditText txtPassword;
+
+    private Button btnSignIn;
+    private Button btnSignUp;
+
+    private int mLoginFailCount;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
+
+        // Start Login Count
+        mLoginFailCount = 0;
+
+        // Get The Refference Of TextEdits
+        txtLogin = (EditText) findViewById(R.id.editTextLogin);
+        txtPassword = (EditText) findViewById(R.id.editTextPassword);
 
         // Get The Refference Of Buttons
-        btnSignIn = (Button) findViewById(R.id.buttonSignIN);
-        btnSignUp = (Button) findViewById(R.id.buttonSignUP);
+        btnSignIn = (Button) findViewById(R.id.btnSingIn);
+        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+                signIn(v);
+
+            }
+        });
 
         // Set OnClick Listener on SignUp button
         btnSignUp.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
+            @Override
+            public void onClick(final View v) {
                 // / Create Intent for SignUpActivity and Start The Activity
-                Intent intentSignUP = new Intent(getApplicationContext(), SignUPActivity.class);
+                final Intent intentSignUP = new Intent(getApplicationContext(),
+                        SignUpActivity.class);
                 startActivity(intentSignUP);
             }
         });
     }
 
     // Methos to handleClick Event of Sign In Button
-    public void signIn(View V) {
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.login);
+    public void signIn(final View V) {
+        final String username = txtLogin.getText().toString();
+        final String password = txtPassword.getText().toString();
 
-        // get the Refferences of views
-        final EditText editTextUserName = (EditText) dialog
-                .findViewById(R.id.editTextUserNameToLogin);
-        final EditText editTextPassword = (EditText) dialog
-                .findViewById(R.id.editTextPasswordToLogin);
+        if (Strings.isNullOrEmpty(username)) {
+            ThinerUtils.showToast(this, "Missing username.");
+        } else if (Strings.isNullOrEmpty(password)) {
+            ThinerUtils.showToast(this, "Missing password.");
+        } else {
 
-        Button btnSignIn = (Button) dialog.findViewById(R.id.buttonSignIn);
+            final String url = APIUtils.getApiUrlLogin() + "?"
+                    + APIUtils.putAttrs("username", username) + "&"
+                    + APIUtils.putAttrs("password", password);
 
-        final String login = editTextUserName.getText().toString();
-        final String password = editTextPassword.getText().toString();
-
-        // Set On ClickListener
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                new GetJSONTask(MainActivity.this)
-                        .execute("http://thiner.herokuapp.com/api/user/login" + "/"
-                                + "username=" + login + "&" + "password=" + password);
-            }
-        });
-
-        dialog.show();
-    }
-
-    public void Login() {
-
+            new GetJSONTask(this).execute(url);
+        }
     }
 
     @Override
@@ -86,8 +100,37 @@ public final class MainActivity extends Activity implements DownloadJSONInterfac
     }
 
     @Override
-    public void callbackDownloadJSON(JSONObject json) {
-        // TODO Auto-generated method stub
+    public void callbackDownloadJSON(final JSONObject json) {
+        final JSONObject users = Preconditions.checkNotNull(json);
 
+        try {
+            if (users.has("users") && users.getJSONArray("users").length() == 1) {
+                startApp();
+            } else {
+                loginFail();
+            }
+        } catch (final JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loginFail() {
+        mLoginFailCount++;
+
+        if (mLoginFailCount > 3) {
+            ThinerUtils.showToast(this, "Do you have account here?");
+        } else {
+            ThinerUtils.showToast(this, "Username or Password incorrect.");
+        }
+
+        txtLogin.setText("");
+        txtPassword.setText("");
+
+    }
+
+    private void startApp() {
+        final Intent intent = new Intent(MainActivity.this,
+                ContactActivity.class);
+        startActivity(intent);
     }
 }
