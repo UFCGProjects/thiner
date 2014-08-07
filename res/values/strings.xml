@@ -1,7 +1,7 @@
 
 <resources>
 
-    <string name="app_name">Thiner Android App</string>
+    <string name="app_name">Thiner</string>
     <string name="action_add_ti">Adicionar Ti</string>
     
     <string name="cant_without_connection">Impossivel sem conexão.</string>
@@ -20,6 +20,7 @@
         <item name="android:shadowRadius">1</item>
     </style>
     
+    <string name="empty_contacts">You dont have any contact</string>
     <string name="create">Create Account</string>
     <string name="go">Go</string>
     <string name="login">Login</string>
