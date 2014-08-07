@@ -1,3 +1,4 @@
+
 package com.thiner.screen.signup;
 
 import org.json.JSONObject;
@@ -59,7 +60,7 @@ public class SignUpActivity extends Activity implements PostJSONInterface {
                 + "&" + lastname);
 
         Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG)
-        .show();
+                .show();
 
     }
 

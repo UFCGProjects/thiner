@@ -1,8 +1,3 @@
-package com.thiner.screen.search;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,6 +10,10 @@ import android.widget.TextView;
 import com.thiner.R;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SearchActivity extends Activity implements GetJSONInterface {
 
@@ -51,6 +50,7 @@ public class SearchActivity extends Activity implements GetJSONInterface {
 
     @Override
     public void callbackDownloadJSON(final JSONObject json) {
+
         final TextView emptySearch;
         final ListView listSearch;
 

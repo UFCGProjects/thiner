@@ -30,7 +30,6 @@
             android:name="com.thiner.screen.contact.ContactActivity"
             android:label="@string/contact_activity"
             android:screenOrientation="portrait" >
-
         </activity>
         <activity
             android:name="com.thiner.screen.signin.SignInActivity"
@@ -49,17 +48,25 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.thiner.screen.main.MainActivity" />
-        </activity>   
+        </activity>
         <activity
             android:name="com.thiner.screen.search.SearchActivity"
             android:label="@string/search"
-            android:parentActivityName="com.thiner.screen.main.ContactActivity"
+            android:parentActivityName="com.thiner.screen.contact.ContactActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.thiner.screen.main.MainActivity" />
+                android:value="com.thiner.screen.contact.ContactActivity" />
         </activity>
-        
+                <activity
+            android:name="com.thiner.screen.profile.ProfileActivity"
+            android:label="@string/profile"
+            android:parentActivityName="com.thiner.screen.contact.ContactActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.thiner.screen.contact.ContactActivity" />
+        </activity>
     </application>
 
 </manifest>

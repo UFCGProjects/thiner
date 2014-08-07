@@ -1,7 +1,3 @@
-/**
- * Copyright (C) 2014 Embedded Systems and Pervasive Computing Lab - UFCG
- * All rights reserved.
- */
 
 package com.thiner.utils;
 
@@ -49,8 +45,7 @@ public final class MyLog {
     /**
      * Sends a debug message.
      *
-     * @param msg
-     *            the msg to be sent
+     * @param msg the msg to be sent
      */
     public static void debug(final String msg) {
         if (LEVEL >= 4) {
@@ -61,10 +56,8 @@ public final class MyLog {
     /**
      * Sends a debug message and the exception message.
      *
-     * @param msg
-     *            the msg to be sent
-     * @param e
-     *            the exception
+     * @param msg the msg to be sent
+     * @param e the exception
      */
     public static void debug(final String msg, final Exception e) {
         if (LEVEL >= 4) {
@@ -75,8 +68,7 @@ public final class MyLog {
     /**
      * Sends a error message.
      *
-     * @param msg
-     *            the msg to be sent
+     * @param msg the msg to be sent
      */
     public static void error(final String msg) {
         if (LEVEL >= 1) {
@@ -87,10 +79,8 @@ public final class MyLog {
     /**
      * Sends a error message and the exception message.
      *
-     * @param msg
-     *            the msg to be sent
-     * @param e
-     *            the exception
+     * @param msg the msg to be sent
+     * @param e the exception
      */
     public static void error(final String msg, final Exception e) {
         if (LEVEL >= 1) {
@@ -101,8 +91,7 @@ public final class MyLog {
     /**
      * Sends a info message.
      *
-     * @param msg
-     *            the msg to be sent
+     * @param msg the msg to be sent
      */
     public static void info(final String msg) {
         if (LEVEL >= 3) {
@@ -113,8 +102,7 @@ public final class MyLog {
     /**
      * Sends a warning message.
      *
-     * @param msg
-     *            the msg to be sent
+     * @param msg the msg to be sent
      */
     public static void warning(final String msg) {
         if (LEVEL >= 2) {

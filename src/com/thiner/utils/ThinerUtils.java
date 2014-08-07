@@ -1,3 +1,4 @@
+
 package com.thiner.utils;
 
 import android.app.Activity;
