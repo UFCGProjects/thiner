@@ -3,8 +3,8 @@ package com.thiner.utils;
 
 public class APIUtils {
 
-    // private static final String URL = "http://thiner.herokuapp.com/api/user";
-    private static final String URL = "http://192.168.1.244:5000/api/user";
+    private static final String URL = "http://thiner.herokuapp.com/api/user";
+    //    private static final String URL = "http://192.168.1.244:5000/api/user";
 
     private static final String URL_LOGIN = "/login";
 
