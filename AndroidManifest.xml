@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.thiner.screen.contact.ContactActivity"
+            android:name="com.thiner.screen.contact.PersonActivity"
             android:label="@string/contact_activity"
             android:screenOrientation="portrait" >
         </activity>

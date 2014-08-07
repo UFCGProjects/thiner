@@ -13,7 +13,7 @@ import com.google.common.base.Strings;
 import com.thiner.R;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
-import com.thiner.screen.contact.ContactActivity;
+import com.thiner.screen.contact.PersonActivity;
 import com.thiner.screen.signup.SignUpActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
@@ -143,7 +143,7 @@ public final class MainActivity extends Activity implements GetJSONInterface {
         AuthPreferences.setId(this, id);
 
         final Intent intent = new Intent(MainActivity.this,
-                ContactActivity.class);
+                PersonActivity.class);
         startActivity(intent);
     }
 

@@ -1,11 +1,9 @@
 
-package com.thiner.screen.search;
+package com.thiner.screen.contact;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -14,6 +12,8 @@ import com.thiner.adapter.PersonAdapter;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
 import com.thiner.model.Person;
+import com.thiner.utils.APIUtils;
+import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
 
 import org.json.JSONArray;
@@ -24,59 +24,67 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SearchActivity extends Activity implements GetJSONInterface {
+/**
+ * The Class MainActivity.
+ */
+public final class PersonActivity extends Activity implements GetJSONInterface {
 
-    private Button mBtGoSearch;
-    private EditText mSearchText;
+    private ArrayList<Person> mListPersons;
+    private PersonAdapter mPersonAdapter;
     private ListView mList;
     private ProgressBar mProgress;
-    private ArrayList<Person> mListContacts;
-    private PersonAdapter mContactAdapter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_contact);
 
-        // Get Refferences of Views
+        mListPersons = new ArrayList<Person>();
 
-        // edConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
+        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_contact, mListPersons);
 
-        mBtGoSearch = (Button) findViewById(R.id.button_go);
+        mList = (ListView) findViewById(android.R.id.list);
 
-        mBtGoSearch.setOnClickListener(new View.OnClickListener() {
+        mList.setAdapter(mPersonAdapter);
+        mList.setEmptyView(findViewById(android.R.id.empty));
 
-            @Override
-            public void onClick(final View v) {
-                sendGetUserInformation();
-
-            }
-
-        });
-    }
-
-    private void sendGetUserInformation() {
-        mSearchText = (EditText) findViewById(R.id.TextViewSearch);
-
-        final String username = "username=" + mSearchText.getText().toString();
-        new GetJSONTask(this).execute(username);
-    }
-
-    private void updatePersons(final List<Person> array) {
-        if (mListContacts != null && mContactAdapter != null) {
-            mListContacts.clear();
-
-            mListContacts.addAll(array);
-
-            Collections.sort(mListContacts);
-
-            mContactAdapter.notifyDataSetChanged();
-        }
+        mProgress = (ProgressBar) findViewById(R.id.progressBar);
 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        mList.setVisibility(View.GONE);
+        mProgress.setVisibility(View.VISIBLE);
+
+        final String url = APIUtils.getApiUrl() + "?"
+                + APIUtils.putAttrs("id", AuthPreferences.getID(this));
+
+        new GetJSONTask(this).execute(url);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
+    }
+
+    public void updateTi(final List<Person> array) {
+        if (mListPersons != null && mPersonAdapter != null) {
+            mListPersons.clear();
+
+            mListPersons.addAll(array);
+
+            Collections.sort(mListPersons);
+
+            mPersonAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public void callbackDownloadJSON(final JSONObject json) {
+        MyLog.warning(json.toString());
 
         final JSONArray users;
 
@@ -102,7 +110,7 @@ public class SearchActivity extends Activity implements GetJSONInterface {
                 array.add(newPerson);
             }
 
-            updatePersons(array);
+            updateTi(array);
 
         } catch (final JSONException e) {
             e.printStackTrace();
