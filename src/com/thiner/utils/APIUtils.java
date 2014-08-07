@@ -12,6 +12,8 @@ public class APIUtils {
 
     private static final String URL_SEARCH = "/search";
 
+    private static final String URL_REMOVE_FRIEND = "/friend/remove";
+
     public static String getApiUrl() {
         return URL;
     }
@@ -30,5 +32,9 @@ public class APIUtils {
 
     public static String getApiUrlSearch() {
         return getApiUrl() + URL_SEARCH;
+    }
+
+    public static String getApiUrlRemoveFriend() {
+        return getApiUrl() + URL_REMOVE_FRIEND;
     }
 }

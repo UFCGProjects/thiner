@@ -2,12 +2,16 @@
 package com.thiner.screen.person;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -15,12 +19,15 @@ import com.thiner.R;
 import com.thiner.adapter.PersonAdapter;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
+import com.thiner.asynctask.PostJSONTask;
+import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
 import com.thiner.model.Person;
 import com.thiner.screen.profile.ProfileActivity;
 import com.thiner.screen.search.SearchActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
+import com.thiner.utils.ThinerUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +40,7 @@ import java.util.List;
 /**
  * The Class MainActivity.
  */
-public final class PersonActivity extends Activity implements GetJSONInterface {
+public final class PersonActivity extends Activity implements GetJSONInterface, PostJSONInterface {
 
     private ArrayList<Person> mListPersons;
     private PersonAdapter mPersonAdapter;
@@ -53,6 +60,41 @@ public final class PersonActivity extends Activity implements GetJSONInterface {
 
         mList.setAdapter(mPersonAdapter);
         mList.setEmptyView(findViewById(android.R.id.empty));
+        mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent,
+                    final View view, final int position, final long id) {
+                // Use the Builder class for convenient dialog construction
+                final AlertDialog.Builder builder = new AlertDialog.Builder(
+                        PersonActivity.this);
+
+                builder.setTitle(R.string.remove_friend)
+                        .setPositiveButton(R.string.remove,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        removeFriend(position);
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        // User cancelled the dialog
+                                    }
+                                });
+                // Create the AlertDialog object and return it
+                builder.create().show();
+
+                return true;
+            }
+
+        });
 
         mProgress = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -62,13 +104,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface {
     protected void onResume() {
         super.onResume();
 
-        mList.setVisibility(View.GONE);
-        mProgress.setVisibility(View.VISIBLE);
-
-        final String url = APIUtils.getApiUrl() + "?"
-                + APIUtils.putAttrs("id", AuthPreferences.getID(this));
-
-        new GetJSONTask(this).execute(url);
+        requestContacts();
     }
 
     @Override
@@ -158,5 +194,41 @@ public final class PersonActivity extends Activity implements GetJSONInterface {
 
         mProgress.setVisibility(View.GONE);
         mList.setVisibility(View.VISIBLE);
+    }
+
+    public void removeFriend(final int position) {
+        final Person person = mListPersons.get(position);
+
+        final String params = APIUtils.putAttrs("id", AuthPreferences.getID(this))
+                + "&" + APIUtils.putAttrs("friend", person.getUsername());
+
+        new PostJSONTask(this).execute(APIUtils.getApiUrlRemoveFriend(), params);
+    }
+
+    public void requestContacts() {
+        mList.setVisibility(View.GONE);
+        mProgress.setVisibility(View.VISIBLE);
+
+        final String url = APIUtils.getApiUrl() + "?"
+                + APIUtils.putAttrs("id", AuthPreferences.getID(this));
+
+        new GetJSONTask(this).execute(url);
+    }
+
+    @Override
+    public void callbackPostJSON(final JSONObject json) {
+        MyLog.info(json.toString());
+
+        try {
+            if (json.has("status") && json.getString("status").equals("success")) {
+                ThinerUtils.showToast(this, json.getString("msg"));
+                requestContacts();
+            } else {
+                ThinerUtils.showToast(this, json.getString("err"));
+            }
+        } catch (final JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

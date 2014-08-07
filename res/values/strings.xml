@@ -46,6 +46,9 @@
     <string name="profile">Profile</string>
     <string name="saveChange">Save Changes</string>
     <string name="search_username">Search for username</string>
+    <string name="remove_friend">Remove this friend</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
     
     
 
