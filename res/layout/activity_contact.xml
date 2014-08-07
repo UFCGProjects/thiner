@@ -17,7 +17,7 @@
         android:padding="10dp" >
 
         <EditText
-            android:id="@+id/editTextFirstName"
+            android:id="@+id/editTextDDD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -29,7 +29,7 @@
             android:textColorHint="#bbbbbb" />
 
         <EditText
-            android:id="@+id/editTextLastName"
+            android:id="@+id/editTextNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -42,7 +42,7 @@
             android:textColorHint="#bbbbbb" />
         
          <EditText
-             android:id="@+id/editTextNewPassword"
+             android:id="@+id/editTextOperadora"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_below="@+id/editTextLastName"
@@ -56,21 +56,7 @@
              android:textColorHint="#bbbbbb" >
 
         </EditText>
-         <EditText
-            android:id="@+id/editTextConfirmNewPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_below="@+id/editTextNewPassword"
-            android:inputType="textWebPassword" 
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColorHint="#bbbbbb"
-            android:background="@drawable/edittext_default_bg"
-            android:hint="Confirm new password"
-            android:drawableLeft="@drawable/password">
 
-        </EditText>
 
     </RelativeLayout>
 

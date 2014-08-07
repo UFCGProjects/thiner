@@ -41,7 +41,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             final LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(mLayoutResourceId, parent, false);
 
-            holder = new ContactnHolder();
+            holder = new ContactHolder();
 
             View view = row.findViewById(R.id.txtDDD);
             if (view instanceof TextView) {
