@@ -2,7 +2,11 @@
 package com.thiner.screen.contact;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -12,6 +16,8 @@ import com.thiner.adapter.PersonAdapter;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
 import com.thiner.model.Person;
+import com.thiner.screen.profile.ProfileActivity;
+import com.thiner.screen.search.SearchActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
@@ -70,7 +76,44 @@ public final class PersonActivity extends Activity implements GetJSONInterface {
         super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
     }
 
-    public void updateTi(final List<Person> array) {
+    /*
+     * (non-Javadoc)
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.search:
+                final Intent intentSearch = new Intent(PersonActivity.this,
+                        SearchActivity.class);
+                startActivity(intentSearch);
+                return true;
+            case R.id.profile:
+                final Intent intentProfile = new Intent(PersonActivity.this,
+                        ProfileActivity.class);
+                startActivity(intentProfile);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.contact, menu);
+        return true;
+    }
+
+    public void updatePerson(final List<Person> array) {
         if (mListPersons != null && mPersonAdapter != null) {
             mListPersons.clear();
 
@@ -86,31 +129,28 @@ public final class PersonActivity extends Activity implements GetJSONInterface {
     public void callbackDownloadJSON(final JSONObject json) {
         MyLog.warning(json.toString());
 
-        final JSONArray users;
-
         final List<Person> array = new ArrayList<Person>();
 
         try {
+            final JSONArray friends = json.getJSONObject("users").getJSONArray("friends");
 
-            users = json.getJSONArray("users");
-            for (int i = 0; i < users.length(); i++) {
-                MyLog.info(users.getJSONObject(i).toString());
+            for (int i = 0; i < friends.length(); i++) {
+                //                MyLog.info(friends.getJSONObject(i).toString());
 
-                JSONObject user;
-                user = users.getJSONObject(i);
+                final JSONObject friend = friends.getJSONObject(i);
 
-                final String firstName = user.getString("firstname");
-                final String secondName = user.getString("lastname");
-                final String username = user.getString("username");
-                final String email = user.getString("lastname");
-                final String operadora = user.getString("operadora");
+                final String firstName = friend.getString("firstname");
+                final String secondName = friend.getString("lastname");
+                final String username = friend.getString("username");
+                final String email = friend.getString("lastname");
+                final String operadora = "TIM"; // friend.getString("operadora");
 
                 final Person newPerson = new Person(firstName, secondName, username, email,
                         operadora);
                 array.add(newPerson);
             }
 
-            updateTi(array);
+            updatePerson(array);
 
         } catch (final JSONException e) {
             e.printStackTrace();
