@@ -46,9 +46,9 @@
            android:layout_height="wrap_content"
            android:padding="10dp"
            android:layout_margin="4dp"
-           android:text="@string/signin"
-            style="@style/DefaultButtonText"
-               android:background="@drawable/button_default_bg"
+           android:text="@string/signIn"
+           style="@style/DefaultButtonText"
+           android:background="@drawable/button_default_bg"
            />
         </LinearLayout>
 
