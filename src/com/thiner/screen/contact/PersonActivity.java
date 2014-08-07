@@ -5,6 +5,14 @@
 
 package com.thiner.screen.contact;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,29 +20,21 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.thiner.R;
-import com.thiner.adapter.ContactAdapter;
+import com.thiner.adapter.PersonAdapter;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
-import com.thiner.model.Contact;
+import com.thiner.model.Person;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * The Class MainActivity.
  */
-public final class ContactActivity extends Activity implements GetJSONInterface {
+public final class PersonActivity extends Activity implements GetJSONInterface {
 
-    private ArrayList<Contact> mListContacts;
-    private ContactAdapter mContactAdapter;
+    private ArrayList<Person> mListPersons;
+    private PersonAdapter mPersonAdapter;
     private ListView mList;
     private ProgressBar mProgress;
 
@@ -43,13 +43,13 @@ public final class ContactActivity extends Activity implements GetJSONInterface 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
-        mListContacts = new ArrayList<Contact>();
+        mListPersons = new ArrayList<Person>();
 
-        mContactAdapter = new ContactAdapter(this, R.layout.adapter_contact, mListContacts);
+        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_contact, mListPersons);
 
         mList = (ListView) findViewById(android.R.id.list);
 
-        mList.setAdapter(mContactAdapter);
+        mList.setAdapter(mPersonAdapter);
         mList.setEmptyView(findViewById(android.R.id.empty));
 
         mProgress = (ProgressBar) findViewById(R.id.progressBar);
@@ -74,15 +74,15 @@ public final class ContactActivity extends Activity implements GetJSONInterface 
         super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
     }
 
-    public void updateTi(final List<Contact> contacts) {
-        if (mListContacts != null && mContactAdapter != null) {
-            mListContacts.clear();
+    public void updateTi(final List<Person> array) {
+        if (mListPersons != null && mPersonAdapter != null) {
+            mListPersons.clear();
 
-            mListContacts.addAll(contacts);
+            mListPersons.addAll(array);
 
-            Collections.sort(mListContacts);
+            Collections.sort(mListPersons);
 
-            mContactAdapter.notifyDataSetChanged();
+            mPersonAdapter.notifyDataSetChanged();
         }
     }
 
@@ -90,29 +90,33 @@ public final class ContactActivity extends Activity implements GetJSONInterface 
     public void callbackDownloadJSON(final JSONObject json) {
         MyLog.warning(json.toString());
 
+        final JSONArray users;
+
+        final List<Person> array = new ArrayList<Person>();
+
         try {
-            final JSONArray friends = json.getJSONObject("users").getJSONArray("friends");
 
-            final List<Contact> array = new ArrayList<Contact>();
+            users = json.getJSONArray("users");
+            for (int i = 0; i < users.length(); i++) {
+                MyLog.info(users.getJSONObject(i).toString());
 
-            for (int i = 0; i < friends.length(); i++) {
-                MyLog.info(friends.getJSONObject(i).toString());
+                JSONObject user;
+                user = users.getJSONObject(i);
 
-                final JSONObject friend = friends.getJSONObject(i);
+                final String firstName = user.getString("firstname");
+                final String secondName = user.getString("lastname");
+                final String username = user.getString("username");
+                final String email = user.getString("lastname");
+                final String operadora = user.getString("operadora");
 
-                final String firstName = friend.getString("firstname");
-                final String secondName = friend.getString("lastname");
-                final String operadora = "TIM";
-
-                final Contact contact = new Contact(firstName, secondName, operadora);
-
-                array.add(contact);
+                final Person newPerson = new Person(firstName, secondName, username, email,
+                        operadora);
+                array.add(newPerson);
             }
 
             updateTi(array);
 
         } catch (final JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

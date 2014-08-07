@@ -1,17 +1,16 @@
-
 package com.thiner.model;
 
 import com.google.common.base.Preconditions;
 
-public class Contact implements Comparable<Contact> {
+public class Contact {
 
     private final String mOperadora;
-    private final String mSecondName;
-    private final String mFirstName;
+    private final int mNumber;
+    private final int mDDD;
 
-    public Contact(final String firstName, final String secondName, final String operadora) {
-        mFirstName = Preconditions.checkNotNull(firstName);
-        mSecondName = Preconditions.checkNotNull(secondName);
+    public Contact(final int firstName, final int secondName, final String operadora) {
+        mDDD = Preconditions.checkNotNull(firstName);
+        mNumber = Preconditions.checkNotNull(secondName);
         mOperadora = Preconditions.checkNotNull(operadora);
     }
 
@@ -19,16 +18,24 @@ public class Contact implements Comparable<Contact> {
         return mOperadora;
     }
 
-    public String getSecondName() {
-        return mSecondName;
+    public int getNumber() {
+        return mNumber;
     }
 
-    public String getFirstName() {
-        return mFirstName;
+    public int getDDD() {
+        return mDDD;
     }
 
     @Override
-    public int compareTo(final Contact arg0) {
-        return getFirstName().compareTo(arg0.getFirstName());
+    public boolean equals(final Object other) {
+        final Contact contact;
+        if (other instanceof Contact) {
+            contact = (Contact) other;
+        } else {
+            return false;
+        }
+
+        return getDDD() == contact.getDDD() && getNumber() == contact.getNumber()
+                && getOperadora().equals(contact.getOperadora());
     }
 }

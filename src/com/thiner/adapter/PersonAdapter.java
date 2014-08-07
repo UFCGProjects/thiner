@@ -1,5 +1,6 @@
-
 package com.thiner.adapter;
+
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,23 +11,21 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.thiner.R;
-import com.thiner.model.Contact;
+import com.thiner.model.Person;
 
-import java.util.ArrayList;
-
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class PersonAdapter extends ArrayAdapter<Person> {
 
     private final Context mContext;
     private final int mLayoutResourceId;
-    private final ArrayList<Contact> mList;
+    private final ArrayList<Person> mList;
 
-    public ContactAdapter(final Context context, final int layoutResourceId,
-            final ArrayList<Contact> list) {
-        super(context, layoutResourceId, list);
+    public PersonAdapter(final Context context, final int layoutResourceId,
+            final ArrayList<Person> mListPersons) {
+        super(context, layoutResourceId, mListPersons);
 
         mContext = context;
         mLayoutResourceId = layoutResourceId;
-        mList = list;
+        mList = mListPersons;
     }
 
     @Override
@@ -34,14 +33,14 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
         View row = convertView;
 
-        ContactHolder holder = null;
+        PersonHolder holder = null;
 
         if (row == null) {
 
             final LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(mLayoutResourceId, parent, false);
 
-            holder = new ContactHolder();
+            holder = new PersonHolder();
 
             View view = row.findViewById(R.id.textViewFirstName);
             if (view instanceof TextView) {
@@ -60,14 +59,14 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 
             row.setTag(holder);
         } else {
-            holder = (ContactHolder) row.getTag();
+            holder = (PersonHolder) row.getTag();
         }
 
-        final Contact contact = mList.get(position);
+        final Person person = mList.get(position);
 
-        holder.txtFirstName.setText(contact.getFirstName());
-        holder.txtSecondName.setText(contact.getSecondName());
-        holder.txtOperadora.setText(contact.getOperadora());
+        holder.txtFirstName.setText(person.getFirstName());
+        holder.txtSecondName.setText(person.getSecondName());
+        holder.txtOperadora.setText(person.getOperadora());
 
         return row;
 
@@ -76,7 +75,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
     /**
      * The Class PlayerHolder.
      */
-    static class ContactHolder {
+    static class PersonHolder {
 
         TextView txtFirstName;
 
