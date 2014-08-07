@@ -21,6 +21,7 @@
     </style>
     
     <string name="create">Create Account</string>
+    <string name="go">Go</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>

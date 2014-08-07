@@ -5,6 +5,12 @@
 
 package com.thiner.screen.main;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,12 +27,6 @@ import com.thiner.screen.contact.ContactActivity;
 import com.thiner.screen.signup.SignUpActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.ThinerUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * The Class MainActivity.
@@ -142,8 +142,7 @@ public final class MainActivity extends Activity implements GetJSONInterface {
     }
 
     private void startApp() {
-        final Intent intent = new Intent(MainActivity.this,
-                ContactActivity.class);
+        final Intent intent = new Intent(MainActivity.this, ContactActivity.class);
         startActivity(intent);
     }
 

@@ -2,16 +2,16 @@ package com.thiner.screen.signup;
 
 import org.json.JSONObject;
 
-import com.thiner.R;
-import com.thiner.asynctask.PostJSONTask;
-import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.thiner.R;
+import com.thiner.asynctask.PostJSONTask;
+import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
 
 public class SignUpActivity extends Activity implements PostJSONInterface {
     EditText edUsername;
@@ -23,7 +23,7 @@ public class SignUpActivity extends Activity implements PostJSONInterface {
     Button btCreateAccount;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
@@ -34,7 +34,8 @@ public class SignUpActivity extends Activity implements PostJSONInterface {
         btCreateAccount = (Button) findViewById(R.id.buttonCreateAccount);
         btCreateAccount.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
+            @Override
+            public void onClick(final View v) {
                 sendPOSTUserInformation();
 
             }
@@ -48,17 +49,17 @@ public class SignUpActivity extends Activity implements PostJSONInterface {
         edEmail = (EditText) findViewById(R.id.etEmail);
         edPassword = (EditText) findViewById(R.id.etPassword);
 
-        String username = "username=" + edUsername.getText().toString();
-        String password = "password=" + edPassword.getText().toString();
-        String email = "email=" + edEmail.getText().toString();
-        String firstname = "firstname=" + edFirstName.getText().toString();
-        String lastname = "lastname=" + edLastName.getText().toString();
+        final String username = "username=" + edUsername.getText().toString();
+        final String password = "password=" + edPassword.getText().toString();
+        final String email = "email=" + edEmail.getText().toString();
+        final String firstname = "firstname=" + edFirstName.getText().toString();
+        final String lastname = "lastname=" + edLastName.getText().toString();
 
         new PostJSONTask(this).execute(username + "&" + password + "&" + email + "&" + firstname
                 + "&" + lastname);
 
         Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG)
-                .show();
+        .show();
 
     }
 
@@ -70,8 +71,7 @@ public class SignUpActivity extends Activity implements PostJSONInterface {
     }
 
     @Override
-    public void callbackPostJSON(JSONObject msg) {
+    public void callbackPostJSON(final JSONObject msg) {
         // TODO Auto-generated method stub
-
     }
 }
