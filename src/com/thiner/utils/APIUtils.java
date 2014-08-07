@@ -8,6 +8,8 @@ public class APIUtils {
 
     private static final String URL_LOGIN = "/login";
 
+    private static final String URL_EDIT_PROFILE = "/edit";
+
     public static String getApiUrl() {
         return URL;
     }
@@ -18,5 +20,9 @@ public class APIUtils {
 
     public static String putAttrs(final String key, final String value) {
         return key + "=" + value;
+    }
+
+    public static String getApiUrlEditProfile() {
+        return getApiUrl() + URL_EDIT_PROFILE;
     }
 }

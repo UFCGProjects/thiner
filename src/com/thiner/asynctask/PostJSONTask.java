@@ -15,12 +15,12 @@ import java.io.IOException;
 public class PostJSONTask extends AsyncTask<String, Void, String> {
     private final Context mContext;
 
-    public PostJSONTask(Context context) {
+    public PostJSONTask(final Context context) {
         mContext = context;
     }
 
     @Override
-    protected String doInBackground(String... paramns) {
+    protected String doInBackground(final String... paramns) {
 
         int trys = 10;
         String result = null;
@@ -30,9 +30,9 @@ public class PostJSONTask extends AsyncTask<String, Void, String> {
 
             try {
 
-                MyLog.info("POST: " + ThinerUtils.getServerURL() + " - " + paramns[0]);
+                MyLog.info("POST: " + paramns[0] + " - " + paramns[1]);
 
-                result = ThinerUtils.sendPOST(ThinerUtils.getServerURL(), paramns[0]);
+                result = ThinerUtils.sendPOST(paramns[0], paramns[1]);
 
                 if (result != null) {
                     break;
@@ -54,16 +54,16 @@ public class PostJSONTask extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String msg) {
+    protected void onPostExecute(final String msg) {
         try {
             ((PostJSONInterface) mContext).callbackPostJSON(new JSONObject(msg));
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             MyLog.error("Error when creating JSON on PostJSONTask", e);
         }
 
     }
 
     public interface PostJSONInterface {
-        public void callbackPostJSON(JSONObject msg);
+        public void callbackPostJSON(JSONObject json);
     }
 }

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:padding="8dp">
+        android:padding="8dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -25,16 +25,16 @@
             android:layout_centerHorizontal="true"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:typeface="serif" 
-            android:textSize="40sp"/>
+            android:textSize="40sp"
+            android:typeface="serif" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_mid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/layout_top"
+        android:layout_centerHorizontal="true"
         android:padding="10dp" >
 
         <EditText
@@ -45,8 +45,9 @@
             android:drawableLeft="@drawable/user"
             android:ems="10"
             android:hint="@string/userName"
+            android:shadowColor="#AAAAAA"
             android:singleLine="true"
-            android:textColorHint="#bbbbbb" >
+            android:textColorHint="#AAAAAA" >
         </EditText>
 
         <EditText
@@ -59,8 +60,9 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:shadowColor="#AAAAAA"
             android:singleLine="true"
-            android:textColorHint="#bbbbbb" >
+            android:textColorHint="#AAAAAA" >
         </EditText>
     </RelativeLayout>
 
@@ -68,9 +70,9 @@
         android:id="@+id/layout_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_mid"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/layout_mid" 
-        android:padding="10dp">
+        android:padding="10dp" >
 
         <Button
             android:id="@+id/btnSignIn"

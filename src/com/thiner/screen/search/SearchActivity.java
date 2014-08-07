@@ -31,7 +31,8 @@ public class SearchActivity extends Activity implements GetJSONInterface {
 
         // edConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
 
-        btGoSearch = (Button) findViewById(R.id.buttonCreateAccount);
+        btGoSearch = (Button) findViewById(R.id.button_go);
+
         btGoSearch.setOnClickListener(new View.OnClickListener() {
 
             @Override

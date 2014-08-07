@@ -1,7 +1,3 @@
-/**
- * Copyright (C) 2014 Embedded Systems and Pervasive Computing Lab - UFCG All
- * rights reserved.
- */
 
 package com.thiner.screen.main;
 
@@ -34,11 +30,11 @@ import java.util.List;
  */
 public final class MainActivity extends Activity implements GetJSONInterface {
 
-    private EditText txtLogin;
-    private EditText txtPassword;
+    private EditText mTxtLogin;
+    private EditText mTxtPassword;
 
-    private Button btnSignIn;
-    private Button btnSignUp;
+    private Button mBtnSignIn;
+    private Button mBtnSignUp;
 
     private int mLoginFailCount;
 
@@ -53,20 +49,20 @@ public final class MainActivity extends Activity implements GetJSONInterface {
         mLoginFailCount = 0;
 
         // Get The Refference Of TextEdits
-        txtLogin = (EditText) findViewById(R.id.editTextLogin);
-        txtPassword = (EditText) findViewById(R.id.editTextPassword);
+        mTxtLogin = (EditText) findViewById(R.id.editTextLogin);
+        mTxtPassword = (EditText) findViewById(R.id.editTextPassword);
 
         // Get The Refference Of Buttons
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        mBtnSignIn = (Button) findViewById(R.id.btnSignIn);
+        mBtnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         mViews = new LinkedList<View>();
-        mViews.add(txtLogin);
-        mViews.add(txtPassword);
-        mViews.add(btnSignIn);
-        mViews.add(btnSignUp);
+        mViews.add(mTxtLogin);
+        mViews.add(mTxtPassword);
+        mViews.add(mBtnSignIn);
+        mViews.add(mBtnSignUp);
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        mBtnSignIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(final View v) {
@@ -76,7 +72,7 @@ public final class MainActivity extends Activity implements GetJSONInterface {
         });
 
         // Set OnClick Listener on SignUp button
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 // / Create Intent for SignUpActivity and Start The Activity
@@ -89,8 +85,8 @@ public final class MainActivity extends Activity implements GetJSONInterface {
 
     // Methos to handleClick Event of Sign In Button
     public void signIn(final View V) {
-        final String username = txtLogin.getText().toString();
-        final String password = txtPassword.getText().toString();
+        final String username = mTxtLogin.getText().toString();
+        final String password = mTxtPassword.getText().toString();
 
         if (Strings.isNullOrEmpty(username)) {
             ThinerUtils.showToast(this, "Missing username.");
@@ -137,8 +133,8 @@ public final class MainActivity extends Activity implements GetJSONInterface {
             ThinerUtils.showToast(this, "Username or Password incorrect.");
         }
 
-        txtLogin.setText("");
-        txtPassword.setText("");
+        mTxtLogin.setText("");
+        mTxtPassword.setText("");
 
     }
 
