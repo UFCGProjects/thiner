@@ -59,7 +59,7 @@
             android:drawableLeft="@drawable/password"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPassword"
+            android:inputType="textWebPassword"
             android:shadowColor="#AAAAAA"
             android:singleLine="true"
             android:textColorHint="#AAAAAA" >
