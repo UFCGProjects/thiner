@@ -32,6 +32,7 @@
             android:id="@+id/editTextLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:layout_below="@+id/editTextFirstName"
             android:background="@drawable/edittext_default_bg"
             android:drawableLeft="@drawable/user"
@@ -39,6 +40,60 @@
             android:padding="10dp"
             android:singleLine="true"
             android:textColorHint="#bbbbbb" />
+
+        <EditText
+            android:id="@+id/editTextOldPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_alignLeft="@+id/editTextLastName"
+            android:layout_below="@+id/editTextLastName"
+            android:inputType="textPassword" 
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="#bbbbbb"
+            android:background="@drawable/edittext_default_bg"
+            android:hint="Old password"
+            android:drawableLeft="@drawable/password">
+
+            <requestFocus />
+        </EditText>
+        
+         <EditText
+            android:id="@+id/editTextNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_alignLeft="@+id/editTextLastName"
+            android:layout_below="@+id/editTextOldPassword"
+            android:inputType="textPassword" 
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="#bbbbbb"
+            android:background="@drawable/edittext_default_bg"
+            android:hint="New password"
+            android:drawableLeft="@drawable/password">
+
+            <requestFocus />
+        </EditText>
+         <EditText
+            android:id="@+id/editTextConfirmNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_alignLeft="@+id/editTextLastName"
+            android:layout_below="@+id/editTextNewPassword"
+            android:inputType="textPassword" 
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHint="#bbbbbb"
+            android:background="@drawable/edittext_default_bg"
+            android:hint="Confirm new password"
+            android:drawableLeft="@drawable/password">
+
+            <requestFocus />
+        </EditText>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -60,22 +115,11 @@
             android:text="@string/saveChange" />
 
         <Button
-            android:id="@+id/btnChangeEmail"
-            style="@style/DefaultButtonText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnSaveNameChange"
-            android:background="@drawable/button_default_bg"
-            android:drawableLeft="@drawable/password"
-            android:padding="10dp"
-            android:text="@string/password" />
-
-        <Button
             android:id="@+id/btnEditNumber"
             style="@style/DefaultButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnChangeEmail"
+            android:layout_below="@+id/btnSaveNameChange"
             android:background="@drawable/button_default_bg"
             android:drawableLeft="@drawable/ic_menu_edit"
             android:padding="10dp"
