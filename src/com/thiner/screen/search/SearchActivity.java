@@ -2,10 +2,14 @@
 package com.thiner.screen.search;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -16,8 +20,11 @@ import com.thiner.R;
 import com.thiner.adapter.PersonAdapter;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
+import com.thiner.asynctask.PostJSONTask;
+import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
 import com.thiner.model.Person;
 import com.thiner.utils.APIUtils;
+import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
 import com.thiner.utils.ThinerUtils;
 
@@ -30,7 +37,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchActivity extends Activity implements GetJSONInterface {
+public class SearchActivity extends Activity implements GetJSONInterface, PostJSONInterface {
 
     private ImageButton mBtnGoSearch;
     private EditText mSearchText;
@@ -38,7 +45,6 @@ public class SearchActivity extends Activity implements GetJSONInterface {
     private ListView mList;
     private ProgressBar mProgress;
     private ArrayList<Person> mListPersons;
-    private PersonAdapter mContactAdapter;
 
     private List<View> mViews;
     private PersonAdapter mPersonAdapter;
@@ -62,6 +68,44 @@ public class SearchActivity extends Activity implements GetJSONInterface {
 
         mList.setAdapter(mPersonAdapter);
         mList.setEmptyView(findViewById(android.R.id.empty));
+        mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent,
+                    final View view, final int position, final long id) {
+                // Use the Builder class for convenient dialog construction
+                final AlertDialog.Builder builder = new AlertDialog.Builder(
+                        SearchActivity.this);
+
+                builder.setTitle(R.string.add_friend)
+                        .setPositiveButton(R.string.add,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        addFriend(position);
+                                    }
+
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        // User cancelled the dialog
+                                    }
+                                });
+                // Create the AlertDialog object and return it
+                builder.create().show();
+
+                return true;
+            }
+
+        });
+
+        mProgress = (ProgressBar) findViewById(R.id.progressBar);
 
         mBtnGoSearch = (ImageButton) findViewById(R.id.button_go);
 
@@ -106,6 +150,15 @@ public class SearchActivity extends Activity implements GetJSONInterface {
         }
     }
 
+    public void addFriend(final int position) {
+        final Person person = mListPersons.get(position);
+
+        final String params = APIUtils.putAttrs("id", AuthPreferences.getID(this))
+                + "&" + APIUtils.putAttrs("friend", person.getID());
+
+        new PostJSONTask(this).execute(APIUtils.getApiUrlRequestFriend(), params);
+    }
+
     private void updatePersons(final List<Person> array) {
         if (mListPersons != null && mPersonAdapter != null) {
             mListPersons.clear();
@@ -133,13 +186,14 @@ public class SearchActivity extends Activity implements GetJSONInterface {
 
                 final JSONObject user = users.getJSONObject(i);
 
+                final String id = user.getString("_id");
                 final String firstName = user.getString("firstname");
                 final String secondName = user.getString("lastname");
                 final String username = user.getString("username");
                 final String email = user.getString("lastname");
                 final String operadora = "TIM"; //user.getString("operadora");
 
-                final Person newPerson = new Person(firstName, secondName, username, email,
+                final Person newPerson = new Person(id, firstName, secondName, username, email,
                         operadora);
                 array.add(newPerson);
             }
@@ -165,6 +219,21 @@ public class SearchActivity extends Activity implements GetJSONInterface {
     private void unlockAll() {
         for (final View v : mViews) {
             v.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void callbackPostJSON(final JSONObject json) {
+        MyLog.info(json.toString());
+
+        try {
+            if (json.has("status") && json.getString("status").equals("success")) {
+                ThinerUtils.showToast(this, json.getString("msg"));
+            } else {
+                ThinerUtils.showToast(this, json.getString("err"));
+            }
+        } catch (final JSONException e) {
+            e.printStackTrace();
         }
     }
 }

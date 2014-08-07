@@ -12,13 +12,13 @@
         android:layout_margin="4dp"
         android:layout_marginTop="-2dp"
         android:background="@drawable/edittext_default_bg"
+        android:singleLine="true"
         android:drawableLeft="@drawable/user"
         android:hint="User Name"
         android:padding="10dp"
-        android:textColorHint="#bbbbbb" >
+        android:textColorHint="#bbbbbb"/>
 
         <requestFocus />
-    </EditText>
 
     <EditText
         android:id="@+id/etFirstName"
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="-2dp"
+        android:singleLine="true"
         android:background="@drawable/edittext_default_bg"
         android:drawableLeft="@drawable/user"
         android:hint="First Name"
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="-2dp"
+        android:singleLine="true"
         android:background="@drawable/edittext_default_bg"
         android:drawableLeft="@drawable/user"
         android:hint="Last Name"
@@ -50,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="-2dp"
+        android:singleLine="true"
         android:background="@drawable/edittext_default_bg"
         android:drawableLeft="@drawable/email"
         android:hint="Email"
@@ -62,6 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="-2dp"
+        android:singleLine="true"
         android:background="@drawable/edittext_default_bg"
         android:drawableLeft="@drawable/password"
         android:hint="Password"
@@ -75,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="-2dp"
+        android:singleLine="true"
         android:background="@drawable/edittext_default_bg"
         android:drawableLeft="@drawable/password"
         android:hint="Confirm Password"

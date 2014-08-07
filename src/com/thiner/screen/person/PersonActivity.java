@@ -175,13 +175,14 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
 
                 final JSONObject friend = friends.getJSONObject(i);
 
+                final String id = friend.getString("_id");
                 final String firstName = friend.getString("firstname");
                 final String secondName = friend.getString("lastname");
                 final String username = friend.getString("username");
                 final String email = friend.getString("lastname");
                 final String operadora = "TIM"; // friend.getString("operadora");
 
-                final Person newPerson = new Person(firstName, secondName, username, email,
+                final Person newPerson = new Person(id, firstName, secondName, username, email,
                         operadora);
                 array.add(newPerson);
             }
@@ -200,7 +201,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
         final Person person = mListPersons.get(position);
 
         final String params = APIUtils.putAttrs("id", AuthPreferences.getID(this))
-                + "&" + APIUtils.putAttrs("friend", person.getUsername());
+                + "&" + APIUtils.putAttrs("friend", person.getID());
 
         new PostJSONTask(this).execute(APIUtils.getApiUrlRemoveFriend(), params);
     }

@@ -14,6 +14,8 @@ public class APIUtils {
 
     private static final String URL_REMOVE_FRIEND = "/friend/remove";
 
+    private static final String URL_REQUEST_FRIEND = "/request";
+
     public static String getApiUrl() {
         return URL;
     }
@@ -36,5 +38,9 @@ public class APIUtils {
 
     public static String getApiUrlRemoveFriend() {
         return getApiUrl() + URL_REMOVE_FRIEND;
+    }
+
+    public static String getApiUrlRequestFriend() {
+        return getApiUrl() + URL_REQUEST_FRIEND;
     }
 }
