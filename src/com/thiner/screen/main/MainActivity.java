@@ -5,12 +5,6 @@
 
 package com.thiner.screen.main;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +20,14 @@ import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
 import com.thiner.screen.contact.ContactActivity;
 import com.thiner.screen.signup.SignUpActivity;
 import com.thiner.utils.APIUtils;
+import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.ThinerUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The Class MainActivity.
@@ -116,7 +117,7 @@ public final class MainActivity extends Activity implements GetJSONInterface {
 
         try {
             if (users.has("users") && users.getJSONArray("users").length() == 1) {
-                startApp();
+                startApp(users.getJSONArray("users").getJSONObject(0).getString("_id"));
             } else {
                 loginFail();
             }
@@ -141,8 +142,12 @@ public final class MainActivity extends Activity implements GetJSONInterface {
 
     }
 
-    private void startApp() {
-        final Intent intent = new Intent(MainActivity.this, ContactActivity.class);
+    private void startApp(final String id) {
+
+        AuthPreferences.setId(this, id);
+
+        final Intent intent = new Intent(MainActivity.this,
+                ContactActivity.class);
         startActivity(intent);
     }
 
