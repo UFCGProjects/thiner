@@ -54,7 +54,7 @@ public final class RequestActivity extends Activity implements GetJSONInterface,
 
         mListPersons = new ArrayList<Person>();
 
-        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_contact, mListPersons);
+        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_person, mListPersons);
 
         mList = (ListView) findViewById(android.R.id.list);
 
@@ -70,38 +70,38 @@ public final class RequestActivity extends Activity implements GetJSONInterface,
                         RequestActivity.this);
 
                 builder.setTitle(R.string.accept_friend)
-                .setPositiveButton(R.string.accept,
-                        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(
-                            final DialogInterface dialog,
-                            final int id) {
-                        acceptFriend(position);
-                    }
+                        .setPositiveButton(R.string.accept,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        acceptFriend(position);
+                                    }
 
-                })
-                .setNegativeButton(R.string.ignore,
-                        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(
-                            final DialogInterface dialog,
-                            final int id) {
-                        ignoreFriend(position);
-                    }
+                                })
+                        .setNegativeButton(R.string.ignore,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        ignoreFriend(position);
+                                    }
 
-                })
-                .setNeutralButton(R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(
-                            final DialogInterface dialog,
-                            final int id) {
-                        // User cancelled the dialog
-                    }
-                }
+                                })
+                        .setNeutralButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        // User cancelled the dialog
+                                    }
+                                }
                         );
                 // Create the AlertDialog object and return it
-                        builder.create().show();
+                builder.create().show();
 
                 return true;
             }

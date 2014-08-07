@@ -1,6 +1,5 @@
-package com.thiner.adapter;
 
-import java.util.ArrayList;
+package com.thiner.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +11,8 @@ import android.widget.TextView;
 
 import com.thiner.R;
 import com.thiner.model.Person;
+
+import java.util.ArrayList;
 
 public class PersonAdapter extends ArrayAdapter<Person> {
 
