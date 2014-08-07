@@ -33,6 +33,7 @@
 	<string name="userName">Username</string>
     <string name="contact_activity">Contacts</string>
 
+	<string name="no_profiles_with_this_username">No_Profiles_With_This Username</string>
     <string name="name">Lorem Ipsum Valves</string> 
     <string name="changePassword">Change Password</string>
     <string name="changeName">Change Name</string>
