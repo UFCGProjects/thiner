@@ -67,7 +67,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.thiner.screen.person.PersonActivity" />
         </activity>
-                <activity
+        <activity
             android:name="com.thiner.screen.profile.ProfileActivity"
             android:label="@string/profile"
             android:parentActivityName="com.thiner.screen.person.PersonActivity"
@@ -75,6 +75,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.thiner.screen.person.PersonActivity" />
+        </activity>
+        <activity
+            android:name="com.thiner.screen.contact.ContactActivity"
+            android:label="@string/contact"
+            android:parentActivityName="com.thiner.screen.profile.ProfileActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.thiner.screen.profile.ProfileActivity" />
         </activity>
     </application>
 

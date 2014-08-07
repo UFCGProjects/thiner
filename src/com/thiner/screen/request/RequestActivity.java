@@ -50,7 +50,7 @@ public final class RequestActivity extends Activity implements GetJSONInterface,
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        setContentView(R.layout.activity_person);
 
         mListPersons = new ArrayList<Person>();
 

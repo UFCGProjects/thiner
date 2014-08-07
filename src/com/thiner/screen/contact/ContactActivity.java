@@ -1,5 +1,5 @@
 
-package com.thiner.screen.profile;
+package com.thiner.screen.contact;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * The Class MainActivity.
  */
-public final class ProfileActivity extends Activity implements PostJSONInterface {
+public final class ContactActivity extends Activity implements PostJSONInterface {
 
     private EditText mEditTxtLastName;
     private EditText mEditTxtFirstName;
