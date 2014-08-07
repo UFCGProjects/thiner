@@ -11,18 +11,18 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/txtDDD"
+            android:id="@+id/textViewFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="83" />
+            android:text="Matheus" />
 
         <TextView
-            android:id="@+id/txtNumber"
+            android:id="@+id/textViewSecondName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@+id/txtDDD"
-            android:text="96555617" />
+            android:layout_toRightOf="@+id/textViewFirstName"
+            android:text="Sampaio" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -33,7 +33,7 @@
         android:visibility="visible" >
 
         <TextView
-            android:id="@+id/txtOperadora"
+            android:id="@+id/textViewOperadora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

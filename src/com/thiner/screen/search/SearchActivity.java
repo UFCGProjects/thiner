@@ -62,7 +62,7 @@ public class SearchActivity extends Activity implements GetJSONInterface, PostJS
 
         mListPersons = new ArrayList<Person>();
 
-        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_contact, mListPersons);
+        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_person, mListPersons);
 
         mList = (ListView) findViewById(android.R.id.list);
 

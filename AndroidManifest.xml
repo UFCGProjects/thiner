@@ -85,6 +85,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.thiner.screen.profile.ProfileActivity" />
         </activity>
+        <activity
+            android:name="com.thiner.screen.friend.FriendActivity"
+            android:parentActivityName="com.thiner.screen.person.PersonActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

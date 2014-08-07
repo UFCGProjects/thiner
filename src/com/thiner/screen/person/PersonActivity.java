@@ -55,7 +55,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
 
         mListPersons = new ArrayList<Person>();
 
-        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_contact, mListPersons);
+        mPersonAdapter = new PersonAdapter(this, R.layout.adapter_person, mListPersons);
 
         mList = (ListView) findViewById(android.R.id.list);
 
