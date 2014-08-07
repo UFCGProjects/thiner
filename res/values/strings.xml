@@ -28,6 +28,19 @@
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="request">Friends Requests</string>
+
     <string name="contact_activity">Contacts</string>
+
+    <string name="name">Lorem Ipsum Valves</string> 
+    <string name="changePassword">Change Password</string>
+    <string name="changeName">Change Name</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="ConfirmNameChange">Confirm Change</string>
+    <string name="myNumbers">My Numbers</string>
+    <string name="editYoursContacts">Edit yours Contacts</string>
+    
+    
+
 
 </resources>
