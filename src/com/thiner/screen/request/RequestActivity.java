@@ -1,5 +1,5 @@
 
-package com.thiner.screen.person;
+package com.thiner.screen.request;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,7 +23,6 @@ import com.thiner.asynctask.PostJSONTask;
 import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
 import com.thiner.model.Person;
 import com.thiner.screen.profile.ProfileActivity;
-import com.thiner.screen.request.RequestActivity;
 import com.thiner.screen.search.SearchActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
@@ -41,7 +40,7 @@ import java.util.List;
 /**
  * The Class MainActivity.
  */
-public final class PersonActivity extends Activity implements GetJSONInterface, PostJSONInterface {
+public final class RequestActivity extends Activity implements GetJSONInterface, PostJSONInterface {
 
     private ArrayList<Person> mListPersons;
     private PersonAdapter mPersonAdapter;
@@ -51,7 +50,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request);
+        setContentView(R.layout.activity_contact);
 
         mListPersons = new ArrayList<Person>();
 
@@ -68,19 +67,30 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                     final View view, final int position, final long id) {
                 // Use the Builder class for convenient dialog construction
                 final AlertDialog.Builder builder = new AlertDialog.Builder(
-                        PersonActivity.this);
+                        RequestActivity.this);
 
-                builder.setTitle(R.string.remove_friend)
-                        .setPositiveButton(R.string.remove,
+                builder.setTitle(R.string.accept_friend)
+                        .setPositiveButton(R.string.accept,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(
                                             final DialogInterface dialog,
                                             final int id) {
-                                        removeFriend(position);
+                                        acceptFriend(position);
                                     }
+
                                 })
-                        .setNegativeButton(R.string.cancel,
+                        .setNegativeButton(R.string.ignore,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(
+                                            final DialogInterface dialog,
+                                            final int id) {
+                                        ignoreFriend(position);
+                                    }
+
+                                })
+                        .setNeutralButton(R.string.cancel,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(
@@ -88,7 +98,8 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                                             final int id) {
                                         // User cancelled the dialog
                                     }
-                                });
+                                }
+                        );
                 // Create the AlertDialog object and return it
                 builder.create().show();
 
@@ -105,7 +116,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
     protected void onResume() {
         super.onResume();
 
-        requestContacts();
+        getPersons();
     }
 
     @Override
@@ -124,19 +135,14 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             case R.id.search:
-                final Intent intentSearch = new Intent(PersonActivity.this,
+                final Intent intentSearch = new Intent(RequestActivity.this,
                         SearchActivity.class);
                 startActivity(intentSearch);
                 return true;
             case R.id.profile:
-                final Intent intentProfile = new Intent(PersonActivity.this,
+                final Intent intentProfile = new Intent(RequestActivity.this,
                         ProfileActivity.class);
                 startActivity(intentProfile);
-                return true;
-            case R.id.request:
-                final Intent intentRequest = new Intent(PersonActivity.this,
-                        RequestActivity.class);
-                startActivity(intentRequest);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -174,21 +180,20 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
         final List<Person> array = new ArrayList<Person>();
 
         try {
-            final JSONArray friends = json.getJSONObject("users").getJSONArray("friends");
+            final JSONArray friends = json.getJSONObject("users").getJSONArray("requests");
 
             for (int i = 0; i < friends.length(); i++) {
                 //                MyLog.info(friends.getJSONObject(i).toString());
 
                 final JSONObject friend = friends.getJSONObject(i);
 
-                final String id = friend.getString("_id");
                 final String firstName = friend.getString("firstname");
                 final String secondName = friend.getString("lastname");
                 final String username = friend.getString("username");
                 final String email = friend.getString("lastname");
                 final String operadora = "TIM"; // friend.getString("operadora");
 
-                final Person newPerson = new Person(id, firstName, secondName, username, email,
+                final Person newPerson = new Person(firstName, secondName, username, email,
                         operadora);
                 array.add(newPerson);
             }
@@ -207,12 +212,12 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
         final Person person = mListPersons.get(position);
 
         final String params = APIUtils.putAttrs("id", AuthPreferences.getID(this))
-                + "&" + APIUtils.putAttrs("friend", person.getID());
+                + "&" + APIUtils.putAttrs("friend", person.getUsername());
 
         new PostJSONTask(this).execute(APIUtils.getApiUrlRemoveFriend(), params);
     }
 
-    public void requestContacts() {
+    public void getPersons() {
         mList.setVisibility(View.GONE);
         mProgress.setVisibility(View.VISIBLE);
 
@@ -229,13 +234,32 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
         try {
             if (json.has("status") && json.getString("status").equals("success")) {
                 ThinerUtils.showToast(this, json.getString("msg"));
-                requestContacts();
+                getPersons();
             } else {
                 ThinerUtils.showToast(this, json.getString("err"));
             }
         } catch (final JSONException e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void acceptFriend(final int position) {
+        final Person person = mListPersons.get(position);
+
+        final String params = APIUtils.putAttrs("id", AuthPreferences.getID(this))
+                + "&" + APIUtils.putAttrs("friend", person.getID());
+
+        new PostJSONTask(this).execute(APIUtils.getApiUrlAcceptFriend(), params);
+    }
+
+    private void ignoreFriend(final int position) {
+        final Person person = mListPersons.get(position);
+
+        final String params = APIUtils.putAttrs("id", AuthPreferences.getID(this))
+                + "&" + APIUtils.putAttrs("friend", person.getID());
+
+        new PostJSONTask(this).execute(APIUtils.getApiUrlIgnoreFriend(), params);
 
     }
 }

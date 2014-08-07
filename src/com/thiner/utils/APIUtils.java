@@ -16,6 +16,10 @@ public class APIUtils {
 
     private static final String URL_REQUEST_FRIEND = "/request";
 
+    private static final String URL_ACCEPT_FRIEND = "/request/accept";
+
+    private static final String URL_IGNORE_FRIEND = "/request/remove";
+
     public static String getApiUrl() {
         return URL;
     }
@@ -42,5 +46,13 @@ public class APIUtils {
 
     public static String getApiUrlRequestFriend() {
         return getApiUrl() + URL_REQUEST_FRIEND;
+    }
+
+    public static String getApiUrlAcceptFriend() {
+        return getApiUrl() + URL_ACCEPT_FRIEND;
+    }
+
+    public static String getApiUrlIgnoreFriend() {
+        return getApiUrl() + URL_IGNORE_FRIEND;
     }
 }

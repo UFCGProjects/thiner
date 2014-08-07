@@ -51,6 +51,10 @@
     <string name="remove">Remove</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="empty_request">You dont have any request</string>
+    <string name="accept_friend">Accept Friend Request</string>
+    <string name="accept">Accept</string>
+    <string name="ignore">Ignore</string>
     
     
 
