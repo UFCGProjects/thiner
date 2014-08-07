@@ -25,6 +25,9 @@ import com.thiner.utils.ThinerUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * The Class MainActivity.
  */
@@ -37,6 +40,8 @@ public final class MainActivity extends Activity implements GetJSONInterface {
     private Button btnSignUp;
 
     private int mLoginFailCount;
+
+    private List<View> mViews;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -51,15 +56,21 @@ public final class MainActivity extends Activity implements GetJSONInterface {
         txtPassword = (EditText) findViewById(R.id.editTextPassword);
 
         // Get The Refference Of Buttons
-        btnSignIn = (Button) findViewById(R.id.btnSingIn);
+        btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
+
+        mViews = new LinkedList<View>();
+        mViews.add(txtLogin);
+        mViews.add(txtPassword);
+        mViews.add(btnSignIn);
+        mViews.add(btnSignUp);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(final View v) {
+                lockAll();
                 signIn(v);
-
             }
         });
 
@@ -112,6 +123,8 @@ public final class MainActivity extends Activity implements GetJSONInterface {
         } catch (final JSONException e) {
             e.printStackTrace();
         }
+
+        unlockAll();
     }
 
     private void loginFail() {
@@ -132,5 +145,17 @@ public final class MainActivity extends Activity implements GetJSONInterface {
         final Intent intent = new Intent(MainActivity.this,
                 ContactActivity.class);
         startActivity(intent);
+    }
+
+    private void lockAll() {
+        for (final View v : mViews) {
+            v.setEnabled(false);
+        }
+    }
+
+    private void unlockAll() {
+        for (final View v : mViews) {
+            v.setEnabled(true);
+        }
     }
 }

@@ -12,7 +12,8 @@
     <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:padding="8dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -27,15 +28,16 @@
         android:id="@+id/layout_mid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_top" >
+        android:layout_below="@+id/layout_top"
+        android:padding="8dp" >
 
         <EditText
             android:id="@+id/editTextLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
             android:ems="10"
-            android:hint="Username" >
+            android:hint="Username"
+            android:singleLine="true" >
         </EditText>
 
         <EditText
@@ -43,10 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editTextLogin"
-            android:singleLine="true"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPassword" >
+            android:inputType="textPassword"
+            android:singleLine="true" >
         </EditText>
     </RelativeLayout>
 
@@ -57,20 +59,19 @@
         android:layout_below="@+id/layout_mid" >
 
         <Button
-            android:id="@+id/btnSignUp"
-            style="@style/DefaultButtonText"
-            android:layout_width="160dp"
+            android:id="@+id/btnSignIn"
+
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:text="Sign Up" />
+            android:text="Sign In" />
 
         <Button
-            android:id="@+id/btnSingIn"
-            style="@style/DefaultButtonText"
-            android:layout_width="160dp"
+            android:id="@+id/btnSignUp"
+
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnSignUp"
-            android:text="Sign In" />
+            android:layout_toRightOf="@+id/btnSignIn"
+            android:text="Sign Up" />
     </RelativeLayout>
 
 </RelativeLayout>
