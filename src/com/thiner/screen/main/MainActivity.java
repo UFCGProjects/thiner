@@ -13,7 +13,7 @@ import com.google.common.base.Strings;
 import com.thiner.R;
 import com.thiner.asynctask.GetJSONTask;
 import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
-import com.thiner.screen.contact.PersonActivity;
+import com.thiner.screen.person.PersonActivity;
 import com.thiner.screen.signup.SignUpActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
@@ -108,7 +108,7 @@ public final class MainActivity extends Activity implements GetJSONInterface {
     }
 
     @Override
-    public void callbackDownloadJSON(final JSONObject json) {
+    public void callbackGetJSON(final JSONObject json) {
         final JSONObject users = Preconditions.checkNotNull(json);
 
         try {

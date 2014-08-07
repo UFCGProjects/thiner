@@ -1,5 +1,5 @@
 
-package com.thiner.screen.contact;
+package com.thiner.screen.person;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -126,7 +126,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface {
     }
 
     @Override
-    public void callbackDownloadJSON(final JSONObject json) {
+    public void callbackGetJSON(final JSONObject json) {
         MyLog.warning(json.toString());
 
         final List<Person> array = new ArrayList<Person>();

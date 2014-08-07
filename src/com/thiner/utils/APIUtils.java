@@ -10,6 +10,8 @@ public class APIUtils {
 
     private static final String URL_EDIT_PROFILE = "/edit";
 
+    private static final String URL_SEARCH = "/search";
+
     public static String getApiUrl() {
         return URL;
     }
@@ -24,5 +26,9 @@ public class APIUtils {
 
     public static String getApiUrlEditProfile() {
         return getApiUrl() + URL_EDIT_PROFILE;
+    }
+
+    public static String getApiUrlSearch() {
+        return getApiUrl() + URL_SEARCH;
     }
 }

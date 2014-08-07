@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.thiner.screen.contact.PersonActivity"
+            android:name="com.thiner.screen.person.PersonActivity"
             android:label="@string/contact_activity"
             android:screenOrientation="portrait" >
         </activity>
@@ -52,16 +52,16 @@
         <activity
             android:name="com.thiner.screen.search.SearchActivity"
             android:label="@string/search"
-            android:parentActivityName="com.thiner.screen.contact.ContactActivity"
+            android:parentActivityName="com.thiner.screen.person.PersonActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.thiner.screen.contact.ContactActivity" />
+                android:value="com.thiner.screen.contact.PersonActivity" />
         </activity>
                 <activity
             android:name="com.thiner.screen.profile.ProfileActivity"
             android:label="@string/profile"
-            android:parentActivityName="com.thiner.screen.contact.ContactActivity"
+            android:parentActivityName="com.thiner.screen.person.ContactActivity"
             android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
