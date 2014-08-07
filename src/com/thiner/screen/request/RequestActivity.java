@@ -70,38 +70,38 @@ public final class RequestActivity extends Activity implements GetJSONInterface,
                         RequestActivity.this);
 
                 builder.setTitle(R.string.accept_friend)
-                        .setPositiveButton(R.string.accept,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(
-                                            final DialogInterface dialog,
-                                            final int id) {
-                                        acceptFriend(position);
-                                    }
+                .setPositiveButton(R.string.accept,
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(
+                            final DialogInterface dialog,
+                            final int id) {
+                        acceptFriend(position);
+                    }
 
-                                })
-                        .setNegativeButton(R.string.ignore,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(
-                                            final DialogInterface dialog,
-                                            final int id) {
-                                        ignoreFriend(position);
-                                    }
+                })
+                .setNegativeButton(R.string.ignore,
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(
+                            final DialogInterface dialog,
+                            final int id) {
+                        ignoreFriend(position);
+                    }
 
-                                })
-                        .setNeutralButton(R.string.cancel,
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(
-                                            final DialogInterface dialog,
-                                            final int id) {
-                                        // User cancelled the dialog
-                                    }
-                                }
+                })
+                .setNeutralButton(R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(
+                            final DialogInterface dialog,
+                            final int id) {
+                        // User cancelled the dialog
+                    }
+                }
                         );
                 // Create the AlertDialog object and return it
-                builder.create().show();
+                        builder.create().show();
 
                 return true;
             }
@@ -187,13 +187,14 @@ public final class RequestActivity extends Activity implements GetJSONInterface,
 
                 final JSONObject friend = friends.getJSONObject(i);
 
+                final String id = friend.getString("_id");
                 final String firstName = friend.getString("firstname");
                 final String secondName = friend.getString("lastname");
                 final String username = friend.getString("username");
                 final String email = friend.getString("lastname");
                 final String operadora = "TIM"; // friend.getString("operadora");
 
-                final Person newPerson = new Person(firstName, secondName, username, email,
+                final Person newPerson = new Person(id, firstName, secondName, username, email,
                         operadora);
                 array.add(newPerson);
             }
