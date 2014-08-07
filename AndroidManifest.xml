@@ -43,7 +43,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.thiner.screen.main.MainActivity" />
+        </activity>   
+        <activity
+            android:name="com.thiner.screen.search.SearchActivity"
+            android:label="@string/search"
+            android:parentActivityName="com.thiner.screen.main.ContactActivityTmp"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.thiner.screen.main.MainActivity" />
         </activity>
+        
     </application>
 
 </manifest>

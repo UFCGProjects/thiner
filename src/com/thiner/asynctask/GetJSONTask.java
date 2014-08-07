@@ -58,7 +58,7 @@ public class GetJSONTask extends AsyncTask<String, Void, String> {
             } else {
                 mainObject = new JSONObject("{'status': 'failed'}");
             }
-            ((DownloadJSONInterface) mContext).callbackDownloadJSON(mainObject);
+            ((GetJSONInterface) mContext).callbackDownloadJSON(mainObject);
 
         } catch (final JSONException e) {
             MyLog.debug(result);
@@ -67,7 +67,7 @@ public class GetJSONTask extends AsyncTask<String, Void, String> {
         }
     }
 
-    public interface DownloadJSONInterface {
+    public interface GetJSONInterface {
         public void callbackDownloadJSON(JSONObject json);
     }
 }

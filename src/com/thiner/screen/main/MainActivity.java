@@ -17,13 +17,13 @@ import android.widget.EditText;
 
 import com.thiner.R;
 import com.thiner.asynctask.GetJSONTask;
-import com.thiner.asynctask.GetJSONTask.DownloadJSONInterface;
+import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
 import com.thiner.screen.signup.SignUPActivity;
 
 /**
  * The Class MainActivity.
  */
-public final class MainActivity extends Activity implements DownloadJSONInterface {
+public final class MainActivity extends Activity implements GetJSONInterface {
     Button btnSignIn, btnSignUp;
 
     @Override
