@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,6 +28,7 @@ import com.thiner.screen.request.RequestActivity;
 import com.thiner.screen.search.SearchActivity;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
+import com.thiner.utils.DialogProfile;
 import com.thiner.utils.MyLog;
 import com.thiner.utils.ThinerUtils;
 
@@ -48,6 +50,8 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
     private ListView mList;
     private ProgressBar mProgress;
 
+    private static DialogProfile mDialogProfile;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
 
         mList.setAdapter(mPersonAdapter);
         mList.setEmptyView(findViewById(android.R.id.empty));
+
         mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             @Override
@@ -98,6 +103,25 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
         });
 
         mProgress = (ProgressBar) findViewById(R.id.progressBar);
+
+        mList.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(final AdapterView<?> arg0, final View arg1, final int arg2,
+                    final long arg3) {
+                mDialogProfile = new DialogProfile(PersonActivity.this,
+                        R.style.FullHeightDialog);
+                mDialogProfile.show();
+
+                mDialogProfile.setNameUser(mPersonAdapter.getItem(arg2).getUsername() + "\n");
+                mDialogProfile.setTitle(mPersonAdapter.getItem(arg2).getFirstName() + " "
+                        + mPersonAdapter.getItem(arg2).getSecondName());
+
+                mDialogProfile.setUserEmail(mPersonAdapter.getItem(arg2).getEmail() + "\n");
+
+            }
+
+        });
 
     }
 
