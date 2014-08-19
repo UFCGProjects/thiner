@@ -1,13 +1,12 @@
-
 <resources>
 
     <string name="app_name">Thiner</string>
     <string name="action_add_ti">Adicionar Ti</string>
-    
     <string name="cant_without_connection">Impossivel sem conexão.</string>
     <string name="connection_unavailable">Conexão indisponivel.</string>
+
     <style name="DefaultButtonText">
-       <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#000000</item>
         <item name="android:gravity">center</item>
@@ -19,7 +18,8 @@
         <item name="android:shadowDy">1</item>
         <item name="android:shadowRadius">1</item>
     </style>
-    
+
+    <string name="profile_icon">Profile Icon</string>
     <string name="empty_contacts">You dont have any contact</string>
     <string name="create">Create Account</string>
     <string name="go">Go</string>
@@ -31,11 +31,10 @@
     <string name="edit">Edit</string>
     <string name="search">Search</string>
     <string name="request">Friends Requests</string>
-	<string name="userName">Username</string>
+    <string name="userName">Username</string>
     <string name="contact_activity">Contacts</string>
-
-	<string name="no_profiles_with_this_username">No profiles with this username.</string>
-    <string name="name">Lorem Ipsum Valves</string> 
+    <string name="no_profiles_with_this_username">No profiles with this username.</string>
+    <string name="name">Lorem Ipsum Valves</string>
     <string name="changePassword">Change Password</string>
     <string name="changeName">Change Name</string>
     <string name="firstName">First Name</string>
@@ -56,8 +55,12 @@
     <string name="accept">Accept</string>
     <string name="ignore">Ignore</string>
     <string name="contact">Contact</string>
-    
-    
 
+    <string-array name="operadoras_array">
+        <item>TIM</item>
+        <item>Oi</item>
+        <item>Claro</item>
+        <item>VIVO</item>
+    </string-array>
 
 </resources>

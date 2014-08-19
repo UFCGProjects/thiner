@@ -12,17 +12,17 @@ public class Person implements Comparable<Person> {
     private final String mEmail;
     private final String mUsername;
     private final String mOperadora;
-    private final ArrayList<Contact> mContacts;
+    private final ArrayList<PhoneNumber> mContacts;
 
     public Person(final String id, final String firstName, final String secondName,
             final String username,
             final String email, final String operadora) {
-        this(id, firstName, secondName, username, email, operadora, new ArrayList<Contact>());
+        this(id, firstName, secondName, username, email, operadora, new ArrayList<PhoneNumber>());
     }
 
     public Person(final String id, final String firstName, final String secondName,
             final String username,
-            final String email, final String operadora, final ArrayList<Contact> contacts) {
+            final String email, final String operadora, final ArrayList<PhoneNumber> contacts) {
 
         mID = id;
         mFirstName = Preconditions.checkNotNull(firstName);
@@ -57,7 +57,7 @@ public class Person implements Comparable<Person> {
         return mOperadora;
     }
 
-    public ArrayList<Contact> getContacts() {
+    public ArrayList<PhoneNumber> getContacts() {
         return mContacts;
     }
 

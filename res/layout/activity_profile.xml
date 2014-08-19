@@ -1,9 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app1="http://schemas.android.com/apk/res/com.thiner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cloud_background"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,64 +15,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
         android:padding="10dp" >
 
-        <EditText
-            android:id="@+id/editTextFirstName"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/layout_top_left"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/edittext_default_bg"
-            android:drawableLeft="@drawable/user"
-            android:hint="@string/firstName"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColorHint="#bbbbbb" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" >
 
-        <EditText
-            android:id="@+id/editTextLastName"
-            android:layout_width="match_parent"
+            <com.thiner.layout.CircleImageView
+                android:id="@+id/imgProfileIcon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/profile_icon"
+                android:src="@android:drawable/sym_def_app_icon"
+                app1:border_color="#FFEEEEEE"
+                app1:border_width="2dp" />
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_top_right"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_below="@+id/editTextFirstName"
-            android:background="@drawable/edittext_default_bg"
-            android:drawableLeft="@drawable/user"
-            android:hint="@string/lastName"
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColorHint="#bbbbbb" />
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/layout_top_left"
+            android:layout_toRightOf="@+id/layout_top_left" >
+
+            <EditText
+                android:id="@+id/editTextFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:hint="@string/firstName"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/editTextLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextFirstName"
+                android:layout_centerHorizontal="true"
+                android:hint="@string/lastName"
+                android:singleLine="true" />
+            
+        </RelativeLayout>
         
-         <EditText
-             android:id="@+id/editTextNewPassword"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_below="@+id/editTextLastName"
-             android:layout_marginBottom="4dp"
-             android:background="@drawable/edittext_default_bg"
-             android:drawableLeft="@drawable/password"
-             android:hint="New password"
-             android:inputType="textWebPassword"
-             android:padding="10dp"
-             android:singleLine="true"
-             android:textColorHint="#bbbbbb" >
-
-        </EditText>
-         <EditText
-            android:id="@+id/editTextConfirmNewPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_below="@+id/editTextNewPassword"
-            android:inputType="textWebPassword" 
-            android:padding="10dp"
-            android:singleLine="true"
-            android:textColorHint="#bbbbbb"
-            android:background="@drawable/edittext_default_bg"
-            android:hint="Confirm new password"
-            android:drawableLeft="@drawable/password">
-
-        </EditText>
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -79,6 +71,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_top"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp" >
+        
+        
+        <LinearLayout
+            android:id="@+id/phone_numbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            
+        </LinearLayout>
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_mid"
         android:layout_centerHorizontal="true"
         android:padding="10dp" >
 
@@ -89,19 +100,45 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_default_bg"
             android:drawableLeft="@android:drawable/ic_menu_save"
+            android:drawableStart="@android:drawable/ic_menu_save"
             android:padding="10dp"
-            android:text="@string/saveChange" />
+            android:text="@string/saveChange"
+            android:visibility="invisible" />
 
-        <Button
-            android:id="@+id/btnEditNumber"
-            style="@style/DefaultButtonText"
+        <EditText
+            android:id="@+id/editTextNewPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnSaveNameChange"
-            android:background="@drawable/button_default_bg"
-            android:drawableLeft="@drawable/ic_menu_edit"
+            android:layout_below="@+id/btnEditNumber"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/edittext_default_bg"
+            android:drawableLeft="@drawable/password"
+            android:drawableStart="@drawable/password"
+            android:hint="New password"
+            android:inputType="textWebPassword"
             android:padding="10dp"
-            android:text="@string/editYoursContacts" />
+            android:singleLine="true"
+            android:visibility="invisible"
+            android:textColorHint="#bbbbbb" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextConfirmNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextNewPassword"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/edittext_default_bg"
+            android:drawableLeft="@drawable/password"
+            android:drawableStart="@drawable/password"
+            android:hint="Confirm new password"
+            android:inputType="textWebPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:visibility="invisible"
+            android:textColorHint="#bbbbbb" >
+        </EditText>
+
     </RelativeLayout>
 
 </RelativeLayout>

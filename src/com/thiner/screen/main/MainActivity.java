@@ -113,7 +113,7 @@ public final class MainActivity extends Activity implements GetJSONInterface {
 
         try {
             if (users.has("users") && users.getJSONArray("users").length() == 1) {
-                startApp(users.getJSONArray("users").getJSONObject(0).getString("_id"));
+                startApp(users.getJSONArray("users").getJSONObject(0));
             } else {
                 loginFail();
             }
@@ -138,9 +138,16 @@ public final class MainActivity extends Activity implements GetJSONInterface {
 
     }
 
-    private void startApp(final String id) {
+    private void startApp(final JSONObject jsonObject) {
 
-        AuthPreferences.setId(this, id);
+        try {
+            AuthPreferences.setId(this, jsonObject.getString("_id"));
+            AuthPreferences.setUserJSON(jsonObject);
+
+        } catch (final JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         final Intent intent = new Intent(MainActivity.this,
                 PersonActivity.class);

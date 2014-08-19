@@ -5,12 +5,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.json.JSONObject;
+
 public final class AuthPreferences {
 
     private static final String KEY_USER = "user";
     private static final String KEY_ID = "id";
 
     private static SharedPreferences preferences;
+
+    private static JSONObject jsonUser;
 
     private AuthPreferences(final Context context) {
     }
@@ -33,11 +37,19 @@ public final class AuthPreferences {
         getInstance(activity).edit().putString(KEY_ID, id).commit();
     }
 
+    public static void setUserJSON(final JSONObject json) {
+        jsonUser = json;
+    }
+
     public static String getUser(final Activity activity) {
         return getInstance(activity).getString(KEY_USER, null);
     }
 
     public static String getID(final Activity activity) {
         return getInstance(activity).getString(KEY_ID, null);
+    }
+
+    public static JSONObject getUserJSON(final Activity activity) {
+        return jsonUser;
     }
 }

@@ -10,18 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.thiner.R;
-import com.thiner.model.Contact;
+import com.thiner.model.PhoneNumber;
 
 import java.util.ArrayList;
 
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends ArrayAdapter<PhoneNumber> {
 
     private final Context mContext;
     private final int mLayoutResourceId;
-    private final ArrayList<Contact> mList;
+    private final ArrayList<PhoneNumber> mList;
 
     public ContactAdapter(final Context context, final int layoutResourceId,
-            final ArrayList<Contact> mListPersons) {
+            final ArrayList<PhoneNumber> mListPersons) {
         super(context, layoutResourceId, mListPersons);
 
         mContext = context;
@@ -63,11 +63,11 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
             holder = (ContactHolder) row.getTag();
         }
 
-        final Contact contact = mList.get(position);
+        final PhoneNumber phone = mList.get(position);
 
-        holder.txtDDD.setText(contact.getDDD());
-        holder.txtNumber.setText(contact.getNumber());
-        holder.txtOperadora.setText(contact.getOperadora());
+        holder.txtDDD.setText(phone.getDDD());
+        holder.txtNumber.setText(phone.getNumber());
+        holder.txtOperadora.setText(phone.getOperadora());
 
         return row;
 

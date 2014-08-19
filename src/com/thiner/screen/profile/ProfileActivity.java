@@ -4,11 +4,16 @@ package com.thiner.screen.profile;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
+import com.google.common.base.CaseFormat;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.thiner.R;
@@ -19,6 +24,7 @@ import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
 import com.thiner.utils.ThinerUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,11 +40,11 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
     private EditText mEditTxtFirstName;
 
     private Button mBtnSaveChanges;
-    private Button mBtnEditNumber;
 
     private List<View> mViews;
     private EditText mEditTxtConfirmNewPassword;
     private EditText mEditTxtNewPassword;
+    private LinearLayout mLayoutPhone;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,6 +55,7 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
         mEditTxtLastName = (EditText) findViewById(R.id.editTextLastName);
         mEditTxtNewPassword = (EditText) findViewById(R.id.editTextNewPassword);
         mEditTxtConfirmNewPassword = (EditText) findViewById(R.id.editTextConfirmNewPassword);
+        mLayoutPhone = (LinearLayout) findViewById(R.id.phone_numbers);
 
         mBtnSaveChanges = (Button) findViewById(R.id.btnSaveNameChange);
 
@@ -60,15 +67,61 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
             }
         });
 
-        mBtnEditNumber = (Button) findViewById(R.id.btnEditNumber);
-
         mViews = new LinkedList<View>();
         mViews.add(mEditTxtFirstName);
         mViews.add(mEditTxtLastName);
         mViews.add(mEditTxtNewPassword);
         mViews.add(mEditTxtConfirmNewPassword);
         mViews.add(mBtnSaveChanges);
-        mViews.add(mBtnEditNumber);
+
+        mEditTxtFirstName.setText(CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, AuthPreferences
+                .getUserJSON(this).optString("firstname")));
+        mEditTxtLastName.setText(CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, AuthPreferences
+                .getUserJSON(this).optString("lastname")));
+
+        final JSONObject userJSON = AuthPreferences.getUserJSON(this);
+        final JSONArray phonesArrayJSON = userJSON.optJSONArray("contatos");
+
+        if (phonesArrayJSON != null) {
+            for (int i = 0; i < phonesArrayJSON.length(); i++) {
+                final View phoneView = getLayoutInflater().inflate(R.layout.adapter_number,
+                        null);
+
+                final EditText number = (EditText) phoneView.findViewById(R.id.editTextNumber);
+                final EditText ddd = (EditText) phoneView.findViewById(R.id.editTextDDD);
+                final Spinner operadoras = (Spinner) phoneView.findViewById(R.id.spinnerOperadora);
+
+                mViews.add(number);
+                mViews.add(ddd);
+                mViews.add(operadoras);
+
+                final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                        R.array.operadoras_array, android.R.layout.simple_spinner_item);
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                // Apply the adapter to the spinner
+                operadoras.setAdapter(adapter);
+
+                try {
+                    MyLog.info(phonesArrayJSON.toString());
+
+                    number.setText(phonesArrayJSON.getJSONObject(i).optString("numero"));
+                    ddd.setText(phonesArrayJSON.getJSONObject(i).optString("DDD"));
+
+                } catch (final JSONException e) {
+                    e.printStackTrace();
+                }
+
+                mLayoutPhone.addView(phoneView);
+            }
+        }
+
+        lockAll();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -76,11 +129,28 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
         super.onDestroy();// Close The DatabaseloginDataBaseAdapter.close();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.profile, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.save:
+                // @TODO: salvar e desabilitar edicao
+                return true;
+            case R.id.edit:
+                // @TODO: habilitar edicao
                 return true;
         }
         return super.onOptionsItemSelected(item);

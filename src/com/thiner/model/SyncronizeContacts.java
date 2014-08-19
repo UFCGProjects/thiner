@@ -99,7 +99,7 @@ public class SyncronizeContacts extends Activity {
                         ContactsContract.CommonDataKinds.Email.TYPE_WORK)
                 .build());
 
-        for (final Contact phone : person.getContacts()) {
+        for (final PhoneNumber phone : person.getContacts()) {
 
             ops.add(ContentProviderOperation
                     .newInsert(Data.CONTENT_URI)
