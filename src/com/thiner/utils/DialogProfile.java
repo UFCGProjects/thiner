@@ -60,14 +60,14 @@ public class DialogProfile extends Dialog {
      */
     public final void setNameUser(final String name) {
         final TextView userNameSending = (TextView)
-                findViewById(R.id.textNumber);
-        userNameSending.setText("" + name + "");
+                findViewById(R.id.tvNameUser);
+        userNameSending.setText("Nome: " + name + "");
 
     }
 
     public final void setUserEmail(final String email) {
-        final TextView userNameNumber = (TextView) findViewById(R.id.textEmail);
-        userNameNumber.setText("" + email + "");
+        final TextView userNameNumber = (TextView) findViewById(R.id.tvNumberOfSharedFiles);
+        userNameNumber.setText("Email: " + email + "");
     }
 
     /**
