@@ -22,6 +22,7 @@ import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
 import com.thiner.asynctask.PostJSONTask;
 import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
 import com.thiner.model.Person;
+import com.thiner.model.SyncronizeContacts;
 import com.thiner.screen.profile.ProfileActivity;
 import com.thiner.screen.request.RequestActivity;
 import com.thiner.screen.search.SearchActivity;
@@ -137,6 +138,11 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                 final Intent intentRequest = new Intent(PersonActivity.this,
                         RequestActivity.class);
                 startActivity(intentRequest);
+                return true;
+            case R.id.syncronize:
+                final SyncronizeContacts mSyncronize = new SyncronizeContacts(mListPersons,
+                        getContentResolver(), getApplicationContext());
+                mSyncronize.syncronize();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

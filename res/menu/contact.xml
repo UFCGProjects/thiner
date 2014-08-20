@@ -18,6 +18,12 @@
         android:orderInCategory="3"
         android:showAsAction="always"
         android:title="@string/profile"/>
+    <item
+        android:id="@+id/syncronize"
+        android:icon="@drawable/ic_action_refresh"
+        android:orderInCategory="4"
+        android:showAsAction="always"
+        android:title="@string/profile"/>
 
 
 </menu>
