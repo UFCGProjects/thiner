@@ -23,6 +23,7 @@ import com.thiner.asynctask.GetJSONTask.GetJSONInterface;
 import com.thiner.asynctask.PostJSONTask;
 import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
 import com.thiner.model.Person;
+import com.thiner.model.PhoneNumber;
 import com.thiner.model.SyncronizeContacts;
 import com.thiner.screen.profile.ProfileActivity;
 import com.thiner.screen.request.RequestActivity;
@@ -216,10 +217,21 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                 final String secondName = friend.getString("lastname");
                 final String username = friend.getString("username");
                 final String email = friend.getString("lastname");
-                final String operadora = "TIM"; // friend.getString("operadora");
+                final JSONArray contacts = friend.getJSONArray("contatos");
+                final ArrayList<PhoneNumber> mcontacts = new ArrayList<PhoneNumber>();
+                for (int j = 0; j < contacts.length(); j++) {
+                    final String operadora = contacts.getJSONObject(j).getString("operadora");
+                    final String ddd = contacts.getJSONObject(j).getString("DDD");
+                    final String numero = contacts.getJSONObject(j).getString("numero")
+                            .replace("-", "");
+
+                    final PhoneNumber newPhoneNumber = new PhoneNumber(Integer.parseInt(ddd),
+                            Integer.parseInt(numero), operadora);
+                    mcontacts.add(newPhoneNumber);
+                }
 
                 final Person newPerson = new Person(id, firstName, secondName, username, email,
-                        operadora);
+                        "Tim", mcontacts);
                 array.add(newPerson);
             }
 

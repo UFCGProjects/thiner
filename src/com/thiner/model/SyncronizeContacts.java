@@ -14,6 +14,7 @@ import android.provider.ContactsContract;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.RawContacts;
 
+import com.thiner.utils.MyLog;
 import com.thiner.utils.ThinerUtils;
 
 import java.util.ArrayList;
@@ -76,6 +77,7 @@ public class SyncronizeContacts {
                         .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                 if (existName.contains(person.getFirstName() + " " +
                         person.getSecondName())) {
+                    MyLog.debug("achei e vou deletar");
                     deleteContact(person);
                 }
             }
