@@ -1,8 +1,11 @@
 package com.thiner.test;
 
+import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.robotium.solo.Solo;
 import com.thiner.screen.main.MainActivity;
@@ -39,7 +42,7 @@ public class TestAll extends ActivityInstrumentationTestCase2<MainActivity> {
 		mSolo.clickOnView(createAccount);
 		mSolo.assertCurrentActivity("OK", SignUpActivity.class);
 		mSolo.goBackToActivity("MainActivity");
-		View buttonSign = mSolo.getView(R.id.btnSignIn);		//
+		View buttonSign = mSolo.getView(R.id.btnSignIn); //
 		mSolo.enterText(0, "dirceudn");
 		mSolo.enterText(1, "12345678");
 		mSolo.searchEditText("carlos oliveira");
@@ -65,6 +68,16 @@ public class TestAll extends ActivityInstrumentationTestCase2<MainActivity> {
 		mSolo.clickOnView(editProfile);
 		mSolo.sleep(500);
 		mSolo.goBackToActivity("PersonActivity");
+
+		mSolo.clickInList(1);
+		mSolo.goBack();
+		mSolo.clickInList(2);
+		mSolo.goBack();
+		mSolo.clickInList(3);
+		mSolo.goBack();
+		mSolo.clickLongInList(2);
+		mSolo.goBack();
+
 		View syncronize = mSolo.getView(R.id.syncronize);
 		mSolo.sleep(500);
 		mSolo.clickOnView(syncronize);
@@ -90,10 +103,6 @@ public class TestAll extends ActivityInstrumentationTestCase2<MainActivity> {
 		mSolo.sleep(500);
 		mSolo.clickOnView(save);
 		mSolo.sleep(500);
-
-	}
-
-	public void testeButtonSigIn() {
 
 	}
 
