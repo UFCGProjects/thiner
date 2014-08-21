@@ -53,6 +53,7 @@ public class SyncronizeContacts {
             ThinerUtils.showToast(mContext, "Ocorreu um erro ao passar a lista de pessoas");
         } else {
             for (final Person person : mPerson) {
+                MyLog.debug("Vou adicionar uma pessoa");
                 createContact(person);
             }
             ThinerUtils.showToast(mContext, "Contatos sincronizados com sua agenda");
@@ -70,24 +71,27 @@ public class SyncronizeContacts {
 
         final Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
-
+        MyLog.debug("ESTOU PROCURANDO PARA DELETAR: " + person.getFirstName() + " "
+                + person.getSecondName());
         if (cur.getCount() > 0) {
             while (cur.moveToNext()) {
                 final String existName = cur.getString(cur
                         .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
                 if (existName.contains(person.getFirstName() + " " +
                         person.getSecondName())) {
                     MyLog.debug("achei e vou deletar");
-                    deleteContact(person);
+                    deleteContact(person.getFirstName() + " " + person.getSecondName());
                 }
             }
+
         }
 
         final ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
         final int rawContactInsertIndex = ops.size();
         ops.add(ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
-                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, "thiner")
-                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, "thiner comApp")
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
                 .build());
         ops.add(ContentProviderOperation
                 .newInsert(ContactsContract.Data.CONTENT_URI)
@@ -131,9 +135,11 @@ public class SyncronizeContacts {
             cr.applyBatch(ContactsContract.AUTHORITY, ops);
         } catch (final RemoteException e) {
             // TODO Auto-generated catch block
+            MyLog.debug("DEU PAU AKI EM 1", e);
             e.printStackTrace();
         } catch (final OperationApplicationException e) {
             // TODO Auto-generated catch block
+            MyLog.debug("DEU PAU AKI EM 2", e);
             e.printStackTrace();
         }
 
@@ -144,12 +150,12 @@ public class SyncronizeContacts {
      * 
      * @param person the person
      */
-    private void deleteContact(final Person person) {
+    private void deleteContact(final String name) {
 
         final ContentResolver cr = mContent;
         final String where = ContactsContract.Data.DISPLAY_NAME + " = ? ";
         final String[] params = new String[] {
-                person.getFirstName() + person.getSecondName()
+                name
         };
 
         final ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
