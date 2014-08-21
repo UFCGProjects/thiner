@@ -280,4 +280,21 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Log Out")
+                .setMessage("Do you really want to Log Out?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(final DialogInterface dialog, final int whichButton) {
+                        PersonActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+
+    }
 }
