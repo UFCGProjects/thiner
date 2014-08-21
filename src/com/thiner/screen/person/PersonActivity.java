@@ -119,7 +119,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                 mDialogProfile.setTitle(mPersonAdapter.getItem(arg2).getFirstName() + " "
                         + mPersonAdapter.getItem(arg2).getSecondName());
 
-                mDialogProfile.setUserEmail(mPersonAdapter.getEmailPerson() + "\n");
+                mDialogProfile.setUserEmail(mPersonAdapter.getItem(arg2).getEmail() + "\n");
 
             }
 
@@ -216,7 +216,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                 final String firstName = friend.getString("firstname");
                 final String secondName = friend.getString("lastname");
                 final String username = friend.getString("username");
-                final String email = friend.getString("lastname");
+                final String email = friend.getString("email");
                 final JSONArray contacts = friend.getJSONArray("contatos");
                 final ArrayList<PhoneNumber> mcontacts = new ArrayList<PhoneNumber>();
                 for (int j = 0; j < contacts.length(); j++) {
