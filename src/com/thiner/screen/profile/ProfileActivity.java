@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -19,6 +20,7 @@ import com.google.common.base.Strings;
 import com.thiner.R;
 import com.thiner.asynctask.PostJSONTask;
 import com.thiner.asynctask.PostJSONTask.PostJSONInterface;
+import com.thiner.model.PhoneNumber;
 import com.thiner.utils.APIUtils;
 import com.thiner.utils.AuthPreferences;
 import com.thiner.utils.MyLog;
@@ -42,9 +44,16 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
     private Button mBtnSaveChanges;
 
     private List<View> mViews;
+    private List<View> mImageButtons;
+
+    private List<PhoneNumber> mContacts;
+
     private EditText mEditTxtConfirmNewPassword;
     private EditText mEditTxtNewPassword;
     private LinearLayout mLayoutPhone;
+    private MenuItem mMenuEdit;
+    private MenuItem mMenuSave;
+    private View mEmptyPhoneBox;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -67,6 +76,8 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
             }
         });
 
+        mImageButtons = new LinkedList<View>();
+
         mViews = new LinkedList<View>();
         mViews.add(mEditTxtFirstName);
         mViews.add(mEditTxtLastName);
@@ -84,35 +95,14 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
 
         if (phonesArrayJSON != null) {
             for (int i = 0; i < phonesArrayJSON.length(); i++) {
-                final View phoneView = getLayoutInflater().inflate(R.layout.adapter_number,
-                        null);
-
-                final EditText number = (EditText) phoneView.findViewById(R.id.editTextNumber);
-                final EditText ddd = (EditText) phoneView.findViewById(R.id.editTextDDD);
-                final Spinner operadoras = (Spinner) phoneView.findViewById(R.id.spinnerOperadora);
-
-                mViews.add(number);
-                mViews.add(ddd);
-                mViews.add(operadoras);
-
-                final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                        R.array.operadoras_array, android.R.layout.simple_spinner_item);
-                // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
-                operadoras.setAdapter(adapter);
 
                 try {
-                    MyLog.info(phonesArrayJSON.toString());
-
-                    number.setText(phonesArrayJSON.getJSONObject(i).optString("numero"));
-                    ddd.setText(phonesArrayJSON.getJSONObject(i).optString("DDD"));
-
+                    addPhoneBox(phonesArrayJSON.getJSONObject(i).optString("DDD"), phonesArrayJSON
+                            .getJSONObject(i).optString("numero"), false);
                 } catch (final JSONException e) {
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
-                mLayoutPhone.addView(phoneView);
             }
         }
 
@@ -135,8 +125,15 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
      */
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.profile, menu);
+
+        mMenuEdit = menu.findItem(R.id.edit);
+        mMenuSave = menu.findItem(R.id.save);
+
+        mMenuSave.setVisible(false);
+
         return true;
     }
 
@@ -148,12 +145,32 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
                 return true;
             case R.id.save:
                 // @TODO: salvar e desabilitar edicao
+                saveChanges();
                 return true;
             case R.id.edit:
-                // @TODO: habilitar edicao
+                enableEdit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void enableEdit() {
+
+        unlockAll();
+
+        //        final MenuItem menuSave = mMenu.findItem(R.id.save);
+
+        addPhoneBox("", "", true);
+
+        mEmptyPhoneBox.findViewById(R.id.imageButtonAdd).setVisibility(View.VISIBLE);
+
+        for (final View v : mImageButtons) {
+            v.setVisibility(View.VISIBLE);
+        }
+
+        mMenuSave.setVisible(true);
+        mMenuEdit.setVisible(false);
+
     }
 
     protected void saveChanges() {
@@ -198,9 +215,13 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
             return;
         }
 
+        MyLog.debug("Making a post for edit profile...");
         new PostJSONTask(this).execute(APIUtils.getApiUrlEditProfile(), params);
 
         lockAll();
+
+        mMenuSave.setVisible(false);
+        mMenuEdit.setVisible(true);
     }
 
     @Override
@@ -219,8 +240,11 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
             e.printStackTrace();
         }
 
-        mEditTxtFirstName.setText("");
-        mEditTxtLastName.setText("");
+        //        mEditTxtFirstName.setText(CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, AuthPreferences
+        //                .getUserJSON(this).optString("firstname")));
+        //        mEditTxtLastName.setText(CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, AuthPreferences
+        //                .getUserJSON(this).optString("lastname")));
+
         mEditTxtNewPassword.setText("");
         mEditTxtConfirmNewPassword.setText("");
 
@@ -238,4 +262,43 @@ public final class ProfileActivity extends Activity implements PostJSONInterface
             v.setEnabled(true);
         }
     }
+
+    private void addPhoneBox(final String ddd, final String number, final boolean empty) {
+        final View phoneView = getLayoutInflater().inflate(R.layout.adapter_number,
+                null);
+        final ImageButton ibAdd = (ImageButton) phoneView.findViewById(R.id.imageButtonAdd);
+        final ImageButton ibDelete = (ImageButton) phoneView.findViewById(R.id.imageButtonDelete);
+        final EditText etNumber = (EditText) phoneView.findViewById(R.id.editTextNumber);
+        final EditText etDdd = (EditText) phoneView.findViewById(R.id.editTextDDD);
+        final Spinner etOperadoras = (Spinner) phoneView.findViewById(R.id.spinnerOperadora);
+
+        final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.operadoras_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        etOperadoras.setAdapter(adapter);
+
+        etNumber.setText(number);
+        etDdd.setText(ddd);
+
+        mLayoutPhone.addView(phoneView);
+
+        if (empty) {
+            mEmptyPhoneBox = phoneView;
+
+        } else {
+
+            //            mImageButtons.add(ibAdd);
+            mImageButtons.add(ibDelete);
+
+            mViews.add(etNumber);
+            mViews.add(etDdd);
+            mViews.add(etOperadoras);
+        }
+
+    }
+
+
+    private void postContact()
 }
