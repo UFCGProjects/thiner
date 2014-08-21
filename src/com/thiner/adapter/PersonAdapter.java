@@ -3,6 +3,7 @@ package com.thiner.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ public class PersonAdapter extends ArrayAdapter<Person> {
     private final Context mContext;
     private final int mLayoutResourceId;
     private final ArrayList<Person> mList;
+
+    private String emailPerson;
 
     public PersonAdapter(final Context context, final int layoutResourceId,
             final ArrayList<Person> mListPersons) {
@@ -68,6 +71,9 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         holder.txtFirstName.setText(person.getFirstName());
         holder.txtSecondName.setText(person.getSecondName());
         holder.txtOperadora.setText(person.getOperadora());
+        emailPerson = mList.get(position).getEmail();
+
+        Log.v("email do caba", emailPerson);
 
         return row;
 
@@ -83,6 +89,11 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         TextView txtSecondName;
 
         TextView txtOperadora;
+
+    }
+
+    public String getEmailPerson() {
+        return emailPerson;
 
     }
 }

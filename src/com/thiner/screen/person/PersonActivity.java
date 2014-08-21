@@ -118,7 +118,7 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                 mDialogProfile.setTitle(mPersonAdapter.getItem(arg2).getFirstName() + " "
                         + mPersonAdapter.getItem(arg2).getSecondName());
 
-                mDialogProfile.setUserEmail(mPersonAdapter.getItem(arg2).getEmail() + "\n");
+                mDialogProfile.setUserEmail(mPersonAdapter.getEmailPerson() + "\n");
 
             }
 

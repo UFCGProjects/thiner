@@ -191,7 +191,7 @@ public final class RequestActivity extends Activity implements GetJSONInterface,
                 final String firstName = friend.getString("firstname");
                 final String secondName = friend.getString("lastname");
                 final String username = friend.getString("username");
-                final String email = friend.getString("lastname");
+                final String email = friend.getString("email");//mexi aki
                 final String operadora = "TIM"; // friend.getString("operadora");
 
                 final Person newPerson = new Person(id, firstName, secondName, username, email,
