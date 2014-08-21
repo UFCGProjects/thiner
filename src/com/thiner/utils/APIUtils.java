@@ -20,6 +20,8 @@ public class APIUtils {
 
     private static final String URL_IGNORE_FRIEND = "/request/remove";
 
+    private static final String URL_ADD_CONTACT = "/contact";
+
     public static String getApiUrl() {
         return URL;
     }
@@ -54,5 +56,9 @@ public class APIUtils {
 
     public static String getApiUrlIgnoreFriend() {
         return getApiUrl() + URL_IGNORE_FRIEND;
+    }
+
+    public static String getApiUrlAddContact() {
+        return getApiUrl() + URL_ADD_CONTACT;
     }
 }

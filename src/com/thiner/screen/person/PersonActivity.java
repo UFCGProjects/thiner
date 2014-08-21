@@ -225,8 +225,8 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                     final String numero = contacts.getJSONObject(j).getString("numero")
                             .replace("-", "");
 
-                    final PhoneNumber newPhoneNumber = new PhoneNumber(Integer.parseInt(ddd),
-                            Integer.parseInt(numero), operadora);
+                    final PhoneNumber newPhoneNumber = new PhoneNumber(ddd,
+                            numero, operadora);
                     mcontacts.add(newPhoneNumber);
                 }
 

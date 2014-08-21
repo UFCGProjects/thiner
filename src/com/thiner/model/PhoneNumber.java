@@ -6,10 +6,10 @@ import com.google.common.base.Preconditions;
 public class PhoneNumber {
 
     private final String operadora;
-    private final int number;
-    private final int DDD;
+    private final String number;
+    private final String DDD;
 
-    public PhoneNumber(final int DDD, final int number, final String operadora) {
+    public PhoneNumber(final String DDD, final String number, final String operadora) {
         this.DDD = Preconditions.checkNotNull(DDD);
         this.number = Preconditions.checkNotNull(number);
         this.operadora = Preconditions.checkNotNull(operadora);
@@ -19,11 +19,11 @@ public class PhoneNumber {
         return operadora;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public int getDDD() {
+    public String getDDD() {
         return DDD;
     }
 
@@ -36,8 +36,8 @@ public class PhoneNumber {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + DDD;
-        result = prime * result + number;
+        result = prime * result + (DDD == null ? 0 : DDD.hashCode());
+        result = prime * result + (number == null ? 0 : number.hashCode());
         result = prime * result + (operadora == null ? 0 : operadora.hashCode());
         return result;
     }
@@ -54,10 +54,18 @@ public class PhoneNumber {
             return false;
         }
         final PhoneNumber other = (PhoneNumber) obj;
-        if (DDD != other.DDD) {
+        if (DDD == null) {
+            if (other.DDD != null) {
+                return false;
+            }
+        } else if (!DDD.equals(other.DDD)) {
             return false;
         }
-        if (number != other.number) {
+        if (number == null) {
+            if (other.number != null) {
+                return false;
+            }
+        } else if (!number.equals(other.number)) {
             return false;
         }
         if (operadora == null) {
