@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -53,6 +54,8 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
     private ProgressBar mProgress;
 
     private static DialogProfile mDialogProfile;
+
+    public static final String PREFS_NAME = "LoginPrefs";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -292,6 +295,10 @@ public final class PersonActivity extends Activity implements GetJSONInterface, 
                     @Override
                     public void onClick(final DialogInterface dialog, final int whichButton) {
                         PersonActivity.super.onBackPressed();
+
+                        final SharedPreferences settings = getSharedPreferences(
+                                PREFS_NAME, 0);
+                        settings.edit().clear().commit();
                     }
                 })
                 .setNegativeButton(android.R.string.no, null).show();
